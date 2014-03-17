@@ -15,6 +15,11 @@ public class Vocabulary {
 	private static final String data = "http://ontology.cybershare.utep.edu/ELSEWeb/elseweb-data.owl#";
 	private static final String service = "http://ontology.cybershare.utep.edu/ELSEWeb/elseweb-service.owl#";
 	
+	private static final String rdf = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
+
+	//rdf properties
+	public static final Property type = model.createProperty(rdf + "type");
+	
 	//service classes
 	public static final Resource SADIService = model.createResource(service + "SADIService");
 	public static final Resource SHAREClient = model.createResource(service + "SHAREClient");

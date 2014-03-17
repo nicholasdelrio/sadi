@@ -49,8 +49,6 @@ public class ELSEWebProvenanceNamedGraph {
 		
 			HttpPost httppost = new HttpPost(postURL.toString());
 			httppost.setEntity(stringEntity);
-			
-			System.out.println(httppost.toString());
 		
 			String content = null;
 		

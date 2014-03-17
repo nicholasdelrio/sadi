@@ -8,8 +8,10 @@ import ca.wilkinsonlab.sadi.client.Service;
 
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
+import com.hp.hpl.jena.rdf.model.Property;
 import com.hp.hpl.jena.rdf.model.RDFNode;
 import com.hp.hpl.jena.rdf.model.Resource;
+import com.hp.hpl.jena.rdf.model.Statement;
 import com.hp.hpl.jena.rdf.model.StmtIterator;
 
 import edu.utep.cybershare.elseweb.ontology.Vocabulary;
@@ -45,19 +47,34 @@ public class ServiceExecution {
 			anActivity = model.createResource(activityURI.toASCIIString(), Vocabulary.SADIActivity);
 			anActivity.addProperty(Vocabulary.wasAssociatedWith, this.agent);
 			
+			//add triples of input and output to the provenance model
+			//this.model.add(input.getModel());
+			this.model.add(outputs);
+			
 			//set input to activity
 			System.out.println("adding as input to activity: " + input.getURI());
 			anActivity.addProperty(Vocabulary.hadInput, input);
 			
 			//set objects of properties as output(s) to activity
 			output = outputs.getResource(input.getURI());
+			
 			StmtIterator iterator = output.listProperties();
 			while(iterator.hasNext()){
-				RDFNode node = iterator.next().getObject();
+				Statement statement = iterator.next();
+				Property prop = statement.getPredicate();
+			
+				//don't consider the type predicates, we want fresh stuff added by the SADI service business logic
+				if(!prop.getURI().equals(Vocabulary.type.getURI())){		
+					
+					RDFNode node = statement.getObject();
+					System.out.println("Adding " + node.toString() + " as an output!");
 				
-				//skip literals since they can't be the subject of a statement
-				if(!node.isLiteral())
-					node.asResource().addProperty(Vocabulary.wasOutputBy, anActivity);
+					//skip literals since they can't be the subject of a statement
+					if(!node.isLiteral()){
+						Resource replicatedOutput = this.model.getResource(node.asResource().getURI());
+						replicatedOutput.addProperty(Vocabulary.wasOutputBy, anActivity);
+					}
+				}
 			}
 		}
 		
