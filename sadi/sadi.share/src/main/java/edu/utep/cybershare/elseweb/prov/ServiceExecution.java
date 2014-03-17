@@ -3,7 +3,6 @@ package edu.utep.cybershare.elseweb.prov;
 import java.io.StringWriter;
 import java.net.URI;
 import java.util.Collection;
-import java.util.UUID;
 
 import ca.wilkinsonlab.sadi.client.Service;
 
@@ -14,6 +13,7 @@ import com.hp.hpl.jena.rdf.model.Resource;
 import com.hp.hpl.jena.rdf.model.StmtIterator;
 
 import edu.utep.cybershare.elseweb.ontology.Vocabulary;
+import edu.utep.cybershare.elseweb.util.ELSEWebProvenanceNamedGraph;
 import edu.utep.cybershare.elseweb.util.Printing;
 import edu.utep.cybershare.elseweb.util.ResourceURI;
 
@@ -72,7 +72,6 @@ public class ServiceExecution {
 		System.out.println("PROVENANCE---------------------");
 		System.out.println(wtr.toString());
 		
-		ELSEWebSPARQLEndpoint endpoint = new ELSEWebSPARQLEndpoint();
-		endpoint.updateProvenance(wtr.toString());
+		ELSEWebProvenanceNamedGraph.getInstance().postProvenance(wtr.toString(), "elseweb", "elseweb1");
 	}
 }
