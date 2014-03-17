@@ -1555,6 +1555,14 @@ public class SHAREKnowledgeBase
 					tracker.beenThere(service, inputResource);
 				}
 				output = service.invokeService(inputResources);
+				
+				/**
+				 * Added test by Nick Del Rio
+				 */
+				
+				System.out.println("------------------------------------------------------------------------");
+				System.out.println("Just invoked " + service.getName());
+				System.out.println("------------------------------------------------------------------------");
 			}
 			
 			stopWatch.stop();
