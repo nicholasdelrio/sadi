@@ -12,6 +12,10 @@ public class ResourceURI {
 		uuid = UUID.randomUUID().toString();
 	}
 	
+	public URI getPreditableURI(String fragment){
+		return createURI(fragment);
+	}
+	
 	public URI getURI(String baseFragment, String id){
 		String fullFragment = baseFragment + "-" + id;
 		return createURI(fullFragment);
@@ -19,6 +23,11 @@ public class ResourceURI {
 	
 	public URI getURI(String baseFragment){		
 		String fullFragment = baseFragment + "-" + uuid.toString();
+		return createURI(fullFragment);
+	}
+	
+	public URI getRandomURI(String baseFragment){
+		String fullFragment = baseFragment + "-" + UUID.randomUUID().toString();
 		return createURI(fullFragment);
 	}
 	

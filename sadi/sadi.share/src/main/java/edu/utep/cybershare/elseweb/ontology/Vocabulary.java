@@ -17,11 +17,8 @@ public class Vocabulary {
 	
 	//service classes
 	public static final Resource SADIService = model.createResource(service + "SADIService");
+	public static final Resource SHAREClient = model.createResource(service + "SHAREClient");
 	public static final Resource SADIActivity = model.createResource(service + "SADIActivity");
-	public static final Resource ExecuteWCSService = model.createResource(service + "ExecuteWCSService");
-	public static final Resource ExtractPayload = model.createResource(service + "ExtractPayload");
-	public static final Resource GenerateSpecification = model.createResource(service + "GenerateSpecification");
-	public static final Resource SubmitToLifemapper = model.createResource(service + "SubmitToLifemapper");
 
 	//provo properties
 	public static final Property hadInput = model.createProperty(service + "hadInput");
