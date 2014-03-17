@@ -61,6 +61,8 @@ import com.hp.hpl.jena.vocabulary.OWL;
 import com.hp.hpl.jena.vocabulary.RDF;
 import com.hp.hpl.jena.vocabulary.RDFS;
 
+import edu.utep.cybershare.elseweb.prov.ServiceExecution;
+
 public class SHAREKnowledgeBase
 {
 	private static final Logger log = Logger.getLogger( SHAREKnowledgeBase.class );
@@ -1563,6 +1565,10 @@ public class SHAREKnowledgeBase
 				System.out.println("------------------------------------------------------------------------");
 				System.out.println("Just invoked " + service.getName());
 				System.out.println("------------------------------------------------------------------------");
+				
+				System.out.println("Logging provenance of execution");
+				ServiceExecution anExecution = new ServiceExecution(service);
+				anExecution.logExecution(inputResources, output);
 			}
 			
 			stopWatch.stop();
