@@ -1,0 +1,11 @@
+PREFIX moby: <http://mobyrdf/> 
+CONSTRUCT 
+{    
+   %u% %u% ?type . 
+} 
+WHERE
+{    
+   ?root moby:hasString ?name_node .    
+   ?name_node moby:hasArticleName "process" .
+   ?name_node moby:hasContent ?type . 
+}

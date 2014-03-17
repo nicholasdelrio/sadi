@@ -1,0 +1,11 @@
+PREFIX moby: <http://mobyrdf/> 
+CONSTRUCT 
+{    
+     %u% %u% ?year . 
+} 
+WHERE 
+{    
+     ?root moby:hasString ?year_node .
+     ?year_node moby:hasArticleName "date" . 
+     ?year_node moby:hasContent ?year .    
+}

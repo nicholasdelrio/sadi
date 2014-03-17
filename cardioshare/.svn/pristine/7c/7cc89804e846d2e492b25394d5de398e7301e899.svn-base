@@ -1,0 +1,1 @@
+proxiedServiceURL=${deploy.root}/extractDrugNamesFromText

@@ -1,0 +1,194 @@
+/* SADI branding
+ * CSS by Luke McCarthy
+ * TODO the alpha channel on the PNGs doesn't work in older version of IE,
+ * so we'll have to go with a simpler background on those browsers (probably
+ * just use the edge and ignore the translucent grid bits...)
+ */
+body {
+  background: url("images/bgtop.png") no-repeat top right;
+  margin: 0;
+  font-family: Verdana, Helvetica, Arial, sans-serif;
+  font-size: 0.75em;
+}
+#outer-frame {
+  background: url("images/bgbottom.png") no-repeat bottom left;
+}
+#inner-frame {
+  background: url("images/bgedge.png") no-repeat top left;
+  padding: 35px; /* bgedge is 25px thick... */
+}
+#nav, #content { margin: 0 6.25%; }
+#footer {
+  text-align: center;
+  font-size: 0.75em;
+}
+
+/*
+html {
+	margin: 0px;
+	background: url("bgtop.png") top right no-repeat;
+}
+
+body {
+	margin: 0px;
+    padding: 6.25%;
+	background: url("bgedge.png") top left no-repeat;
+    font-family: Verdana, Helvetica, Arial, sans-serif;
+    font-size: 0.75em;
+}
+
+#footer {
+	background: url("bgbottom.png") bottom left no-repeat;
+    clear: both;
+    text-align: center;
+    font-size: small;
+}
+*/
+
+h1, h2, h3, h4 {
+}
+
+xmp {
+	font-size: 1.2em;
+}
+
+#content-landing {
+    margin: -34px 6.25% 6.25% 6.25%;
+}
+#content {
+    margin: 0 6.25% 6.25% 6.25%
+}
+
+img.sponsor {
+    margin-left: 60px;
+    margin-right: 60px;
+}
+
+.nobreak {
+    white-space: nowrap;
+}
+
+.query-english {
+	font-style: italic;
+}
+
+xmp.query-sparql {
+	margin-left: 2em;
+}
+
+/**
+ * image replacement technique from
+ *  http://www.kryogenix.org/code/browser/lir/
+ */
+#header h1 {
+    padding: 154px 0 0 0; /* height of the image */
+    overflow: hidden;
+    background-image: url("images/header.png");
+    background-repeat: no-repeat;
+    height: 0px !important; /* for most browsers */
+    height /**/:154px; /* for IE5.5 */
+}
+
+#welcome {
+	padding: 34px 0 0 0;
+	overflow: hidden;
+	background-image: url("images/welcome.png");
+	background-repeat: no-repeat;
+	height: 0px !important; /* for most browsers */
+    height /**/:34px; /* for IE5.5 */
+    position: relative;
+    top: -71px;
+    left: 459px;
+}
+
+/*
+#preamble {
+	float: left;
+	width: 33%;
+	padding-right: 1em;
+	font-size: small;
+}
+*/
+
+#horizon {
+    position: absolute;
+    top: 50%;
+    left: 0px;
+    width: 100%;
+    height: 1px;
+    overflow: visible;
+    text-align: center;
+}
+
+/**
+ * required for Ext tabs...
+ */
+.x-tab-strip-wrap ul {
+	margin: 0px;
+	padding-left: 0px;
+	list-style: none;
+}
+
+.x-tab-panel-body .x-panel-body {
+    padding:10px;
+}
+
+/**
+ * used on predicates page...
+ */
+dt {
+	margin-top: 2em;
+	margin-bottom: 0.5em;
+}
+
+dd ul {
+	margin: 0px;
+	padding: 0px;
+}
+
+dd li {
+	list-style: none;
+	margin-left: 1em;
+	text-indent: -1em;
+	margin-bottom: 0.5em;
+}
+
+div.figure {
+	margin: 0.5em;
+	padding: 0.25em;
+	width: 100%;
+}
+
+div.figure img {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+div.figure p.caption {
+	font-style: italic;
+	text-align: center;
+}
+
+div.figure td {
+	vertical-align: center;
+}
+
+div.side-by-side div {
+	width: 50%;
+	float: left;
+}
+
+div.side-by-side div + div {
+	width: 50%;
+	float: right;
+}
+
+.centered { 
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+
+

@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+ "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <title>Personal Health Lens UI Test</title>
+    <link rel='stylesheet' type='text/css' href='style/index.css'/>
+    <!--
+      load the dependencies here to get them into the cache...
+     -->
+    <script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js'></script>
+    <script type='text/javascript' src='http://rdfquery.googlecode.com/files/jquery.rdfquery.core.min-1.0.js'></script>
+    <script type='text/javascript' src='js/er-uitest.js'></script>
+    <script type='text/javascript' src='js/highlight.js'></script>
+    <script type='text/javascript' src='js/interact.js'></script>
+    <script type='text/javascript' src='js/jquery.tmpl.js'></script>
+    <script type='text/javascript'>
+        $(function () {
+            var bookmarklet = "javascript:(function(){if(window.SADI){if(window.SADI.bookmarkletClicked){window.SADI.bookmarkletClicked();return;}}else{window.SADI={};}if(document.getElementsByTagName('body').length>0){var%20_script=document.createElement('script');_script.setAttribute('src','${deploy.js}/bookmarklet-uitest.js');document.getElementsByTagName('body')[0].appendChild(_script);}})()";
+            $("#msg").append("<p>jQuery is working for you.</p>");
+            if (typeof $.rdf !== 'undefined') {
+                $("#msg").append("<p>rdfQuery is working for you.</p>");
+                $("a.PHL_bookmarklet").attr("href", bookmarklet);
+                $("#warning").remove();
+                if ("${deploy.root}".indexOf("localhost") !== -1) {
+                    $("#test-text").before("<p>This version of the bookmarklet won't work unless the cardioSHARE-medDB server is running at <a href='${deploy.root}'>${deploy.root}</a>.</p>");
+                }
+            }
+        });
+    </script>
+  </head>
+  <body>
+    <h1 class='PHL_index'>Personal Health Lens UI Test</h1>
+    <div id='msg'></div>
+    <p id='warning'>If you do not see a link to the bookmarklet 
+     there is some problem preventing you from interacting with one 
+     of the required libraries. Check the JavaScript console for more
+     information.</p>
+    <p>Click this link to test the  
+      <a class='PHL_bookmarklet'>Personal Health Lens UI</a>. You can bookmark 
+      the link so that you can test the <a class='PHL_bookmarklet'>Personal
+      Health Lens UI</a> on other web pages, although it will only ever match
+      "St. John's Wort", "Lepirudin" and "Alprazolam".</p>
+    <div id='test-text'>
+      <h2>True positives</h2>
+      <p>St. John's Wort, Lepirudin.</p>
+      <h2>Former true positives</h2>
+      <p>aspirin, ibuprofen.</p>
+      <h2>False positives</h2>
+      <p>none.</p>
+      <h2>Former false positives</h2>
+      <p>medicine, labels, pseudo.</p>
+      <h2>Former false negatives</h2>
+      <p>St John's wort, Alprazolam.</p>
+    </div>
+    <div id='footer'>
+        <p>Powered by SADI.</p>
+        <p>
+          <img class="sponsor" src="http://sadiframework.org/style/2011-03-14/images/HSFBCY.gif" alt="HSFBCY logo" height="62" width="134"/>
+          <img class="sponsor" src="http://sadiframework.org/style/2011-03-14/images/CANARIE.png" alt="CANARIE logo" height="62" width="242"/>
+          <img class="sponsor" src="http://sadiframework.org/style/2011-03-14/images/CIHR.png" alt="CIHR logo" height="62" width="91"/>
+        </p>
+        <p>Development of SADI is generously supported by 
+          <span class="nobreak">CANARIE</span>,
+          <span class="nobreak">the Heart and Stroke Foundation of B.C. and Yukon</span>,
+          <span class="nobreak">the Canadian Institutes of Health Research</span>, and 
+          <span class="nobreak">Microsoft Research</span>.
+        </p>
+    </div>
+  </body>
+</html>

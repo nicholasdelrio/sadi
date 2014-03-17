@@ -1,0 +1,4 @@
+# sadi.properties
+sadi.client.localKey = foo
+
+sadi.defaultReasoner = org.mindswap.pellet.jena.PelletReasonerFactory.THE_SPEC

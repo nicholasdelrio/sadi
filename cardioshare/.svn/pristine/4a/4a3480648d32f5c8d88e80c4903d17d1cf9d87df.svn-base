@@ -1,0 +1,49 @@
+PREFIX med:  <http://sadiframework.org/ontologies/personalized-medicine/prescription.owl#>
+PREFIX sio:  <http://semanticscience.org/resource/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX lsrn: <http://purl.oclc.org/SADI/LSRN/>
+PREFIX ddi:  <http://sadi-ontology.semanticscience.org/ddiv2.owl#>
+
+SELECT *
+WHERE {
+
+  	?prescribedDrug sio:SIO_000062 ?interaction .  # SIO_000062 = 'is participant in'
+
+    ?interaction
+        a ddi:DDI_00062;                            # DDI_00062  = 'directed drug drug interaction'
+        sio:SIO_000355 [                            # SIO_000355 = 'realizes' (a role)
+            a ddi:DDI_00008;                        # DDI_00008  = 'actor'
+            sio:SIO_000227 ?dangerousDrug           # SIO_000227 = 'is role of'
+        ];
+        sio:SIO_000355 [                            # SIO_000355 = 'realizes' (a role)
+            a ddi:DDI_00010;                        # DDI_00008  = 'target'
+            sio:SIO_000227 ?prescribedDrug          # SIO_000227 = 'is role of'
+        ];
+        sio:SIO_000253 ?publication;                # SIO_000253 = 'has source'
+        sio:SIO_000554 ?interactionDescriptor .     # SIO_000554 = 'results in'
+
+    ?interactionDescriptor rdfs:label ?interactionDescriptorLabel .
+
+    ?publication
+        a sio:SIO_000087;                           # SIO_000087 = 'publication'
+        sio:SIO_000008 [                            # SIO_000008 = 'has attribute'
+           a lsrn:PMID_Identifier;
+           sio:SIO_000300 ?pubmedId                 # SIO_000300 = 'has value'
+        ] .
+
+    ?prescribedDrug
+        a med:PrescribedDrug;
+        rdfs:label ?prescribedDrugName;
+        sio:SIO_000008 [                            # SIO_000008 = 'has attribute'
+           a lsrn:DrugBank_Identifier;
+           sio:SIO_000300 ?prescribedDrugId         # SIO_000300 = 'has value'
+        ] .
+
+    ?dangerousDrug
+        rdfs:label ?dangerousDrugName;
+        sio:SIO_000008 [                            # SIO_000008 = 'has attribute'
+           a lsrn:DrugBank_Identifier;
+           sio:SIO_000300 ?dangerousDrugId          # SIO_000300 = 'has value'
+        ] .
+
+}

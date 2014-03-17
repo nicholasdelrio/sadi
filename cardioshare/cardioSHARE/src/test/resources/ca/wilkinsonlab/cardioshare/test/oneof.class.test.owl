@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE rdf:RDF [
+    <!ENTITY owl "http://www.w3.org/2002/07/owl#">
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+]>
+
+<rdf:RDF
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+
+    <owl:Ontology rdf:about=""/>
+
+    <owl:Class rdf:ID="ClassA">
+       <owl:oneOf rdf:parseType="Collection">
+           <rdf:Description rdf:about="#IndividualA"/>
+           <rdf:Description rdf:about="#IndividualB"/>
+       </owl:oneOf>
+    </owl:Class>
+
+	<owl:NamedIndividual rdf:ID="IndividualA"/>
+	<owl:NamedIndividual rdf:ID="IndividualB"/>
+	<owl:NamedIndividual rdf:ID="IndividualC"/>
+
+</rdf:RDF>
+
+

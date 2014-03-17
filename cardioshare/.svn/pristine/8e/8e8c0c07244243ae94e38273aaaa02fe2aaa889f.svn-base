@@ -1,0 +1,16 @@
+log4j.rootLogger=WARN, CONSOLE
+
+log4j.appender.CONSOLE=org.apache.log4j.ConsoleAppender
+log4j.appender.CONSOLE.layout=org.apache.log4j.PatternLayout
+log4j.appender.CONSOLE.layout.ConversionPattern=[%d] %-5p (%F:%L) %m%n
+
+log4j.appender.TASKSTATUS=ca.wilkinsonlab.sadi.tasks.StatusAppender
+log4j.appender.TASKSTATUS.layout=org.apache.log4j.PatternLayout
+log4j.appender.TASKSTATUS.layout.ConversionPattern=%m%n
+
+log4j.additivity.ca.wilkinsonlab.sadi=true
+log4j.logger.ca.wilkinsonlab.sadi=INFO, TASKSTATUS
+# shut up the warning about the output class...
+log4j.logger.ca.wilkinsonlab.sadi.client.virtual.biomoby=ERROR
+# let people see the valuesFrom filtering
+log4j.logger.ca.wilkinsonlab.sadi.share=DEBUG

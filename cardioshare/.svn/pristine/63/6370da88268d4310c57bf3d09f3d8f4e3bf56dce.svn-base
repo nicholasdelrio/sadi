@@ -1,0 +1,10 @@
+PREFIX moby: <http://mobyrdf/> 
+CONSTRUCT 
+{    
+     %u% %u% ?numAtoms . 
+} 
+WHERE 
+{    
+     ?root moby:hasArticleName "numAtoms" . 
+     ?root moby:hasContent ?numAtoms .    
+}

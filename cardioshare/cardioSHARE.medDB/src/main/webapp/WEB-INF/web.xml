@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app
+ xmlns="http://java.sun.com/xml/ns/j2ee"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
+ version="2.4">
+
+  <display-name>CardioSHARE demo</display-name>
+
+  <servlet>
+    <servlet-name>cardioSHARE</servlet-name>
+    <servlet-class>ca.wilkinsonlab.cardioshare.CardioSHAREServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>cardioSHARE</servlet-name>
+    <url-pattern>/query</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>DrugDrugInteractionDiscovery</servlet-name>
+    <servlet-class>org.semanticscience.SADI.DDIdiscovery.Discover</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DrugDrugInteractionDiscovery</servlet-name>
+    <url-pattern>/DrugDrugInteractionDiscovery</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>extractDrugNamesFromTextV4</servlet-name>
+    <servlet-class>ca.unbsj.cbakerlab.information_extraction_sadi.ExtractDrugNamesV4</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>extractDrugNamesFromTextV4</servlet-name>
+    <url-pattern>/extractDrugNamesFromText</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>er-proxy</servlet-name>
+    <servlet-class>ca.wilkinsonlab.sadi.service.proxy.LocalEntityRecognitionProxy</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>er-proxy</servlet-name>
+    <url-pattern>/er-proxy</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>data</servlet-name>
+  	<servlet-class>ca.wilkinsonlab.cardioshare.DatasetDeliveryServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>data</servlet-name>
+  	<url-pattern>/data/*</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    	<servlet-name>Joseki</servlet-name>
+    	<servlet-class>org.joseki.http.Servlet</servlet-class>
+    	<init-param>
+    		<param-name>org.joseki.rdfserver.config</param-name>
+    		<param-value>/WEB-INF/joseki-config.ttl</param-value>
+    	</init-param>
+    </servlet>
+    <servlet-mapping>
+    	<servlet-name>Joseki</servlet-name>
+    	<url-pattern>/sparql/medDB</url-pattern>
+    </servlet-mapping>
+</web-app>

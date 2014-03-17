@@ -1,0 +1,11 @@
+PREFIX moby: <http://mobyrdf/> 
+CONSTRUCT 
+{    
+   %u% %u% ?name . 
+} 
+WHERE
+{    
+   ?root moby:hasString ?name_node .    
+   ?name_node moby:hasArticleName "Definition" .
+   ?name_node moby:hasContent ?name . 
+}

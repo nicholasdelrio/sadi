@@ -1,0 +1,10 @@
+PREFIX moby: <http://mobyrdf/> 
+CONSTRUCT 
+{    
+     %u% %u% ?formula . 
+} 
+WHERE 
+{    
+     ?root moby:hasArticleName "formula" . 
+     ?root moby:hasContent ?formula .    
+}

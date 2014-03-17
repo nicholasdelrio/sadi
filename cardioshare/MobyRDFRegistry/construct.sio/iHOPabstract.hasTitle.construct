@@ -1,0 +1,14 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX ss: <http://semanticscience.org/resource/>
+PREFIX moby: <http://mobyrdf/> 
+CONSTRUCT 
+{    
+     %u% %u% _:title .
+     _:title rdf:type ss:SIO_000185 .
+     _:title ss:SIO_000300 ?title . 
+} 
+WHERE 
+{    
+     ?root moby:hasArticleName "title" . 
+     ?root moby:hasContent ?title .    
+}

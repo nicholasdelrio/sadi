@@ -1,0 +1,10 @@
+PREFIX moby: <http://mobyrdf/> 
+CONSTRUCT 
+{    
+   %u% %u% ?seqStr . 
+} 
+WHERE
+{    
+   ?root moby:hasString ?seq .    
+   ?seq moby:hasContent ?seqStr . 
+}

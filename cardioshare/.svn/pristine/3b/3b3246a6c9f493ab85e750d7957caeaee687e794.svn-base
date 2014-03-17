@@ -1,0 +1,10 @@
+PREFIX moby: <http://mobyrdf/> 
+CONSTRUCT 
+{    
+     %u% %u% ?weight . 
+} 
+WHERE 
+{    
+     ?root moby:hasArticleName "mw" . 
+     ?root moby:hasContent ?weight .    
+}

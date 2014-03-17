@@ -1,0 +1,13 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX mobyobj: <http://biomoby.org/RESOURCES/MOBY-S/Objects/>
+PREFIX moby: <http://mobyrdf/> 
+CONSTRUCT 
+{    
+     %u% %u% ?crossref_node . 
+} 
+WHERE 
+{    
+     ?crossref rdf:type mobyobj:CrossReference .    
+     ?crossref moby:hasObject ?crossref_node .    
+     ?crossref_node moby:hasNamespace "UniProt" . 
+}

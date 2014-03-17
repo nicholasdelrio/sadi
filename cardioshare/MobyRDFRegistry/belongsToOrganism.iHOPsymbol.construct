@@ -1,0 +1,12 @@
+PREFIX moby: <http://mobyrdf/> 
+CONSTRUCT 
+{    
+     %u% %u% ?organismStr . 
+} 
+WHERE 
+{    
+     ?root moby:hasArticleName "symbol" . 
+     ?root moby:hasString ?organism .    
+     ?organism moby:hasArticleName "organism" .    
+     ?organism moby:hasContent ?organismStr .  
+}

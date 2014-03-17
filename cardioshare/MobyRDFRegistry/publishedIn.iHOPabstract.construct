@@ -1,0 +1,10 @@
+PREFIX moby: <http://mobyrdf/> 
+CONSTRUCT 
+{    
+     %u% %u% ?journal . 
+} 
+WHERE 
+{    
+     ?root moby:hasArticleName "magazine" . 
+     ?root moby:hasContent ?journal .    
+}

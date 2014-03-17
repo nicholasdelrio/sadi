@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE rdf:RDF [
+    <!ENTITY owl "http://www.w3.org/2002/07/owl#">
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+]>
+
+<rdf:RDF
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+
+    <owl:Ontology rdf:about=""/>
+
+	<owl:Class rdf:about="&owl;NamedIndividual">
+		<owl:unionOf rdf:parseType="Collection">
+			<owl:Class rdf:about="#ClassA"/>
+			<owl:Class rdf:about="#ClassB"/>
+		</owl:unionOf>
+	</owl:Class>
+
+    <owl:Class rdf:ID="ClassA">
+       <owl:oneOf rdf:parseType="Collection">
+         <rdf:Description rdf:about="#IndividualA"/>
+         <rdf:Description rdf:about="#IndividualB"/>
+       </owl:oneOf>
+       <owl:disjointWith rdf:resource="#ClassB"/>
+    </owl:Class>
+
+    <owl:Class rdf:ID="ClassB">
+        <owl:disjointWith rdf:resource="#ClassA"/>
+	</owl:Class>
+
+	<owl:NamedIndividual rdf:ID="IndividualA">
+		<owl:differentFrom rdf:resource="#IndividualB"/>
+		<owl:differentFrom rdf:resource="#IndividualC"/>
+	</owl:NamedIndividual>
+
+	<owl:NamedIndividual rdf:ID="IndividualB">
+		<owl:differentFrom rdf:resource="#IndividualA"/>
+		<owl:differentFrom rdf:resource="#IndividualC"/>
+	</owl:NamedIndividual>
+
+	<owl:NamedIndividual rdf:ID="IndividualC">
+		<owl:differentFrom rdf:resource="#IndividualA"/>
+		<owl:differentFrom rdf:resource="#IndividualB"/>
+	</owl:NamedIndividual>
+
+</rdf:RDF>
+
+

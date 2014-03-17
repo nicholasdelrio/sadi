@@ -1,0 +1,30 @@
+h1.PHL_index {
+	padding: 209px 0 0 0; /* height of the image */
+    background: url("medDB-header.jpg") no-repeat top center;
+    color: #700;
+    font-family: Palatino, "Palatino Linotype", serif;
+    text-align: center;
+}
+
+body {
+    font-family: Optima, "Zapf humanist", Tahoma, sans-serif;
+}
+
+#msg {
+    text-align: center;
+    border: 1px dotted black;
+}
+
+#footer {
+    text-align: center;
+    font-size: 0.75em;
+    border-top: 1px dotted black;
+}
+#footer img.sponsor {
+    margin-left: 60px;
+    margin-right: 60px;
+}
+#footer .powered-by-sadi {
+    padding: 160px 0 0 0; /* height of the image */
+    background: url("sadi-logo.png") no-repeat top center;
+}

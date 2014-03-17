@@ -1,0 +1,40 @@
+Index: src/main/resources/cardioSHARE.properties
+===================================================================
+--- src/main/resources/cardioSHARE.properties	(revision 329)
++++ src/main/resources/cardioSHARE.properties	(working copy)
+@@ -1,3 +1,3 @@
+ # cardioSHARE.properties
+ 
+-#usePellet = true
+\ No newline at end of file
++usePellet = true
+\ No newline at end of file
+Index: src/main/webapp/queries.html
+===================================================================
+--- src/main/webapp/queries.html	(revision 329)
++++ src/main/webapp/queries.html	(working copy)
+@@ -194,6 +194,7 @@
+ 	?patient pred:latestCreatinine ?creat . 
+ }</xmp>
+       </li>
++      <!-- 
+       <li>
+         <p class='query-english'>Same as the last query, but encapsulated as an OWL class.</p>
+         <xmp class='query-sparql'>PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+@@ -206,7 +207,7 @@
+ 	?patient pred:latestCreatinine ?creat . 
+ }</xmp>
+       </li>
+-      <!-- 
++      -->
+        this query requires Pellet, which is not running on production
+       <li>
+         <p class='query-english'>Same as the last query, but encapsulated as an OWL class.</p>
+@@ -221,7 +222,6 @@
+ 	?patient pred:latestCreatinine ?creat . 
+ }</xmp>
+       </li>
+-      -->
+     </ol>
+     </div>
+   </body>

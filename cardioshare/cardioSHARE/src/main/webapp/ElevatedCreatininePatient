@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<rdf:RDF xmlns:ns0="http://cohse.semanticweb.org/ontologies/people#"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+    xmlns:moby="http://moby/">
+
+    <owl:Ontology rdf:about="">
+    	<owl:imports rdf:resource="http://sadiframework.org/ontologies/predicates.owl"/>
+    </owl:Ontology>
+    <owl:Class rdf:about="http://biordf.net/cardioSHARE/ElevatedCreatininePatient">
+        <rdfs:label>ElevatedCreatininePatient</rdfs:label>
+        <rdfs:comment>A patient whose creatinine level is increasing over time.</rdfs:comment>
+        <owl:equivalentClass>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://sadiframework.org/ontologies/predicates.owl#creatinineSlope" />
+                <owl:hasValue rdf:resource="http://biordf.net/moby/keyword/increasing" />
+            </owl:Restriction>
+        </owl:equivalentClass>
+    </owl:Class>
+
+</rdf:RDF>

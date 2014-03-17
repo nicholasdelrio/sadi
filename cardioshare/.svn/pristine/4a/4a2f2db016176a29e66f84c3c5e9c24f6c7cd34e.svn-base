@@ -1,0 +1,26 @@
+#!/usr/bin/perl -n
+
+use strict;
+use warnings;
+
+our $id;
+my ($height, $weight) = split;
+++$id;
+print <<EOF;
+  <rdf:Description rdf:ID="$id">
+    <rdfs:label>patient #$id</rdfs:label>
+    <mged:has_height>
+      <mged:Measurement>
+        <mged:has_units rdf:resource="&mged;m"/>
+        <mged:has_value>$height</mged:has_value>
+      </mged:Measurement>
+    </mged:has_height>
+    <mged:has_mass>
+      <mged:Measurement>
+        <mged:has_units rdf:resource="&mged;kg"/>
+        <mged:has_value>$weight</mged:has_value>
+      </mged:Measurement>
+    </mged:has_mass>
+  </rdf:Description>
+EOF
+

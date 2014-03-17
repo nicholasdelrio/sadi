@@ -1,0 +1,6 @@
+Adding mapping for predicate 'http://es-01.chibi.ubc.ca/~benv/predicates.owl#isPaperAboutProtein':
+   Service: getSymbolInfo
+   Authority: search
+   Input article name: result
+   Output article name: iHOPsymbol:isPaperAboutProtein.iHOPsymbol.construct
+OK

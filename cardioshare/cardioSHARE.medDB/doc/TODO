@@ -1,0 +1,17 @@
+ * bookmarklet will not work on sites that have an old version of jQuery loaded
+ 	* compartmentalize jQuery version somehow? edit the JS and host in the webapp?
+ 	* find out which bleeding-edge features we're using and work around them?
+ * fix index.html to give a gentler introduction
+ 	* include text about the server running only if deploy.root doesn't contain localhost
+ * fix dummy.html
+ 	* rename to ui-only or something
+ * entity recognition servlet
+ 	* fuzzy matching (currently done in JS)
+ 	* memory leaks
+ 		* creating instances per-invocation that could be shared?
+ 		* not closing models?
+ 	* speed
+ 		* the creating instances thing again
+ * issue SPARQL live against cardioSHARE, but only call the ER service on the current page
+ * use consistent namespace in JS
+ 	* switch from window.SADI to PHL

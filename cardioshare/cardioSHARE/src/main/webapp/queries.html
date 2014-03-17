@@ -1,0 +1,254 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+  <head>
+    <title>CardioSHARE demo - Example queries</title>
+    <link rel="icon" href="/cardioSHARE/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="style/cardioSHARE.css" />
+  </head>
+  <body>
+    <div id='outer-frame'>
+      <div id='inner-frame'>
+  	<div id='header'>
+      <h1>CardioSHARE demo</h1>
+    </div>
+    <div id='content'>
+      <h2>Example queries</h2>
+    <ol>
+      <li>
+        <p class='query-english'> What are all of the names for UniProt "P15923"?</p>
+        <xmp class='query-sparql'>PREFIX sadi: <http://sadiframework.org/ontologies/properties.owl#>
+PREFIX ss: <http://semanticscience.org/resource/> 
+PREFIX uniprot: <http://lsrn.org/UniProt:> 
+SELECT ?nameString
+WHERE {
+	uniprot:P15923 sadi:hasName ?name .
+	?name ss:SIO_000300 ?nameString .
+}</xmp>
+      </li>
+      <li>
+        <p class='query-english'> What proteins is Pubmed article 9207092 written about? What organisms do these proteins belong to?</p>
+        <xmp class='query-sparql'>PREFIX sadi: <http://sadiframework.org/ontologies/properties.owl#> 
+PREFIX ss: <http://semanticscience.org/resource/> 
+PREFIX pubmed: <http://lsrn.org/PMID:> 
+SELECT ?protein ?organismName
+WHERE { 
+	pubmed:9207092 ss:SIO_000252 ?protein . 
+ 	?protein sadi:fromOrganism ?organism . 
+ 	?organism sadi:hasName ?name .
+ 	?name ss:SIO_000300 ?organismName .
+}</xmp>
+      </li>
+      <li>
+        <p class='query-english'> What protein(s) does PDB entry "3SAK" provide a structure  for? What are the amino acid sequences for these proteins?</p>
+        <xmp class='query-sparql'>PREFIX sadi: <http://sadiframework.org/ontologies/properties.owl#>
+PREFIX ss: <http://semanticscience.org/resource/> 
+PREFIX pdb: <http://lsrn.org/PDB:>
+SELECT ?protein ?seqString
+WHERE { 
+	pdb:3SAK sadi:is3DStructureOf ?protein . 
+	?protein sadi:hasSequence ?sequence .
+	?sequence ss:SIO_000300 ?seqString .
+}</xmp>
+      </li>
+      <li>
+        <p class='query-english'> What pathways does UniProt protein P47989 belong to?</p>
+        <xmp class='query-sparql'>PREFIX ss: <http://semanticscience.org/resource/> 
+PREFIX uniprot: <http://lsrn.org/UniProt:>
+SELECT ?gene ?pathway 
+WHERE { 
+	uniprot:P47989 ss:SIO_010079 ?gene . 
+	?gene ss:SIO_000062 ?pathway . 
+}</xmp>
+      </li>
+      <!-- 
+       this query takes 20 minutes to run; it does finish, though...
+      <li>
+        <p class='query-english'> What GO terms have been used to annotate proteins that match the keyword "parkinson"?</p>
+        <xmp class='query-sparql'>PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+PREFIX sadi: <http://sadiframework.org/ontologies/properties.owl#> 
+PREFIX ss: <http://semanticscience.org/resource/> 
+PREFIX lsrn: <http://purl.oclc.org/SADI/LSRN/> 
+PREFIX dumontier: <http://ontology.dumontierlab.com/> 
+PREFIX keyword: <http://biordf.net/moby/Global_Keyword/> 
+SELECT ?protein ?term ?nameString
+WHERE { 
+	keyword:parkinson dumontier:isTagOf ?protein . 
+	?protein ss:SIO_000219 ?term .
+	?term rdf:type lsrn:GO_Record .
+	?term sadi:hasName ?name .
+	?name ss:SIO_000300 ?nameString .
+}</xmp>
+      </li>
+       -->
+      <li>
+        <p class='query-english'> What genes are involved in the same pathway as KEGG gene hsa:50616?</p>
+        <xmp class='query-sparql'>PREFIX ss: <http://semanticscience.org/resource/> 
+PREFIX hsa: <http://lsrn.org/KEGG:hsa:>
+SELECT ?pathway ?relatedGene 
+WHERE { 
+	hsa:50616 ss:SIO_000062 ?pathway . 
+	?pathway ss:SIO_000132 ?relatedGene .
+}</xmp>
+      </li>
+      <li>
+        <p class='query-english'>What genes are involved in both KEGG pathway "hsa00030" and KEGG pathway "has00500"?</p>
+        <xmp class='query-sparql'>PREFIX ss: <http://semanticscience.org/resource/> 
+PREFIX pathway: <http://lsrn.org/KEGG_PATHWAY:>
+SELECT ?gene 
+WHERE { 
+	?gene ss:SIO_000062 pathway:hsa00030 . 
+	?gene ss:SIO_000062 pathway:hsa00500 .
+}</xmp>
+      </li>
+      <li>
+        <p class='query-english'>What genes are involved in KEGG pathway "hsa00232"? What proteins do those genes code for? What are the sequences of those proteins?</p>
+        <xmp class='query-sparql'>PREFIX sadi: <http://sadiframework.org/ontologies/properties.owl#> 
+PREFIX ss: <http://semanticscience.org/resource/> 
+PREFIX kegg: <http://lsrn.org/KEGG_PATHWAY:>
+SELECT ?gene ?protein ?seqString 
+WHERE { 
+	kegg:hsa00232 ss:SIO_000132 ?gene . 
+	?gene ss:SIO_010078 ?protein . 
+	?protein sadi:hasSequence ?sequence .
+	?sequence ss:SIO_000300 ?seqString .
+}</xmp>
+      </li>
+      <li>
+        <p class='query-english'>What genes are instances of the class http://elmonline.ca/dev/simple.owl#simple:CaffeineMetabolismParticipant?</p>
+        <xmp class='query-sparql'>PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+PREFIX simple: <http://biordf.net/cardioSHARE/simple.owl#> 
+SELECT ?gene 
+WHERE { 
+	?gene rdf:type simple:CaffeineMetabolismParticipant
+}</xmp>
+      </li>
+      <li>
+        <p class='query-english'>Show me images of the cho snapdragon mutant.</p>
+        <xmp class='query-sparql'>PREFIX pred: <http://sadiframework.org/ontologies/service_objects.owl#>
+PREFIX dragondb: <http://lsrn.org/DragonDB_Allele:>
+SELECT ?image ?desc
+WHERE {
+	dragondb:cho pred:visualizedByImage ?image .
+	?image pred:hasDescription ?desc
+}
+</xmp>
+      </li>
+      <li>
+        <p class='query-english'>What are the paralogs of the KEGG CXCL1 gene, and what are their scores</p>
+        <xmp class='query-sparql'>PREFIX serv: <http://sadiframework.org/ontologies/service_objects.owl#>
+PREFIX kegg: <http://lsrn.org/KEGG:hsa:>
+SELECT ?gene ?score ?ssdb
+WHERE {
+    kegg:2919 serv:isParalogOf ?gene .
+    ?gene serv:participantInSSDBRecord ?ssdb .
+    ?ssdb serv:bitScore  ?score
+}
+</xmp>
+      </li>
+      <!-- this query is unstable because the SPARQL endpoints frequently don't respond...
+      <li>
+        <p class='query-english'>Describe the pharmacology of drugs that have atherosclerosis as a known side effect.</p>
+        <xmp class='query-sparql'>PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX drugbank: <http://www4.wiwiss.fu-berlin.de/drugbank/resource/drugbank/>
+PREFIX sider: <http://www4.wiwiss.fu-berlin.de/sider/resource/sider/>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+
+SELECT *
+WHERE {
+    ?sideEffect sider:sideEffectName "atherosclerosis" .
+    ?drug sider:sideEffect ?sideEffect .
+    ?drug owl:sameAs ?drugBank .
+    ?drugBank drugbank:pharmacology ?pharmacology .
+}
+</xmp>
+      </li>
+      -->
+      <li>
+        <p class='query-english'>Show me participants in KEGG pathway "hsa00232". If the participant is a gene, show me the protein it codes for; if the participant is a compound, show me it's PubChem equivalent.</p>
+        <xmp class='query-sparql'>PREFIX sadi: <http://sadiframework.org/ontologies/properties.owl#> 
+PREFIX ss: <http://semanticscience.org/resource/> 
+PREFIX kegg: <http://lsrn.org/KEGG_PATHWAY:> 
+SELECT ?participant ?protein ?chemical 
+WHERE { 
+	kegg:hsa00232 ss:SIO_000132 ?participant . 
+	OPTIONAL { 
+		?participant ss:SIO_010078 ?protein . 
+	} . 
+	OPTIONAL { 
+		?participant sadi:isSubstance ?chemical . 
+	}
+}</xmp>
+      </li>
+      <li>
+        <p class='query-english'>Show me patients whose creatinine level is increasing over time, along with their latest BUN and creatinine levels.</p>
+        <xmp class='query-sparql'>PREFIX regress: <http://sadiframework.org/examples/regression.owl#> 
+PREFIX patients: <http://sadiframework.org/ontologies/patients.owl#> 
+PREFIX pred: <http://sadiframework.org/ontologies/predicates.owl#> 
+SELECT ?patient ?bun ?creat 
+FROM <http://sadiframework.org/ontologies/patients.rdf>
+WHERE {
+	?patient patients:creatinineLevels ?collection . 
+	?collection regress:hasRegressionModel ?model . 
+	?model regress:slope ?slope
+		FILTER (?slope > 0) .
+	?patient pred:latestBUN ?bun . 
+	?patient pred:latestCreatinine ?creat . 
+}</xmp>
+      </li>
+      <li>
+        <p class='query-english'>Same as the last query, but encapsulated as an OWL class.</p>
+        <xmp class='query-sparql'>PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+PREFIX patient: <http://biordf.net/cardioSHARE/>
+PREFIX pred: <http://sadiframework.org/ontologies/predicates.owl#> 
+SELECT ?patient ?bun ?creat 
+WHERE { 
+	?patient rdf:type patient:ElevatedCreatininePatient . 
+	?patient pred:latestBUN ?bun . 
+	?patient pred:latestCreatinine ?creat . 
+}</xmp>
+      </li>
+      <!-- 
+       this query requires Pellet, which is not running on production
+      <li>
+        <p class='query-english'>Same as the last query, but encapsulated as an OWL class.</p>
+        <xmp class='query-sparql'>PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+PREFIX patients: <http://sadiframework.org/ontologies/patients.owl#> 
+PREFIX pred: <http://sadiframework.org/ontologies/predicates.owl#> 
+SELECT ?patient ?bun ?creat
+FROM <http://sadiframework.org/ontologies/patients.rdf>
+WHERE {
+	?patient rdf:type patients:ElevatedCreatininePatient .
+	?patient pred:latestBUN ?bun . 
+	?patient pred:latestCreatinine ?creat . 
+}</xmp>
+      </li>
+      -->
+    </ol>
+    </div>
+    <div id='footer'>
+      <img class="sponsor" style="margin-top: 10px;" src="images/HSFBCY.gif" alt="HSFBCY logo" height="62" width="134"/>
+      <img class="sponsor" style="margin-top: 10px;" src="images/CANARIE.png" alt="CANARIE logo" height="62" width="242"/>
+      <img class="sponsor" style="margin-top: 16px;" src="images/CIHR.png" alt="CIHR logo" height="62" width="91"/>
+      <p>Development of SADI is generously supported by 
+        <span class="nobreak">the Heart and Stroke Foundation of B.C. and Yukon</span>,
+        <span class="nobreak">the Canadian Institutes of Health Research</span>, and 
+        <span class="nobreak">Microsoft Research</span>.
+      </p>
+      <p>Major funding for the 
+        <span class="nobreak"><a href="http://gcbioinformatics.ca">Bioinformatics Innovation Center</a></span>
+        is provided by the
+        <span class="nobreak">Government of Canada</span> through
+        <span class="nobreak">Genome Canada</span> and
+        <span class="nobreak">Genome Alberta</span>.
+      </p>
+      <p style="margin-top: 20px;">
+        <img class="sponsor" src="images/GenomeCanada.png" alt="Genome Canada logo" height="116" width="191"/>
+        <img class="sponsor" src="images/GenomeAlberta.png" alt="Genome Alberta logo" height="116" width="185"/>
+      </p>
+    </div> <!-- footer -->
+      </div> <!-- inner-frame -->
+    </div> <!-- outer-frame -->
+  </body>
+</html>

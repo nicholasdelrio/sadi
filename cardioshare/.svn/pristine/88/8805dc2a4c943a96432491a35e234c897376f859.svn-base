@@ -1,0 +1,2 @@
+# sadi.properties
+sadi.defaultReasoner = org.mindswap.pellet.jena.PelletReasonerFactory.THE_SPEC

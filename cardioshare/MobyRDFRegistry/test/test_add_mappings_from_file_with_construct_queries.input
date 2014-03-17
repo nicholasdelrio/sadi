@@ -1,0 +1,2 @@
+PREFIX SHARE: <http://es-01.chibi.ubc.ca/~benv/predicates.owl#>
+SHARE:isPaperAboutProtein getSymbolInfo cnio.es search result iHOPsymbol:isPaperAboutProtein.iHOPsymbol.construct

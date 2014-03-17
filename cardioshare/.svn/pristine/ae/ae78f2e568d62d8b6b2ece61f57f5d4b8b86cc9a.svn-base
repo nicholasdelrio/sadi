@@ -1,0 +1,10 @@
+PREFIX moby: <http://mobyrdf/> 
+CONSTRUCT 
+{    
+     %u% %u% ?charge . 
+} 
+WHERE 
+{    
+     ?root moby:hasArticleName "charge" . 
+     ?root moby:hasContent ?charge .    
+}

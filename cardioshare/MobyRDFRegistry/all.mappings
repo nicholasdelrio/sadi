@@ -1,0 +1,232 @@
+#---------------------------------------------------------------
+# Each line in this file maps a predicate URI to a service input/output pair.
+# The purpose of such a mapping is to describe the semantic relationship
+# between the input and output of a Moby service, for use by the
+# SHARE query engine.
+#
+# The fields on each line appear in the following order:
+#   
+# <predicate URI> <service name> <service authority> <input article name> <output article name> [<Moby datatype>:<CONSTRUCT query file>]
+#
+# None of these fields are allowed to contain whitespace, and 
+# use of double or single quotes is not supported.
+# 
+# You may specify SPARQL-style PREFIX lines so you don't have
+# to type out the full URIs for predicates.  Make sure all the PREFIX lines come at
+# the top of the file.
+#
+# The service authority (e.g. bioinfo.icapture.ubc.ca) identifies
+# which party is providing the service. Each mapping may have an
+# associated CONSTRUCT file. See perldoc for 'list_mappings.pl'
+# for an explanation of what this query is for. 
+#
+# This file is input for the script 'add_mappings.pl'.
+#
+# -- B.V.
+#----------------------------------------------------------------
+
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX benv: <http://es-01.chibi.ubc.ca/~benv/predicates.owl#>
+PREFIX predicates: <http://sadiframework.org/ontologies/predicates.owl#>
+PREFIX dumontier: <http://ontology.dumontierlab.com/>
+PREFIX prop: <http://sadiframework.org/ontologies/properties.owl#>
+PREFIX ss: <http://semanticscience.org/resource/>
+
+# note that the many cases where it seems we are switching to an identically
+# named predicate are usually required because the old predicate is a
+# data property...
+
+#dumontier:isParticipantIn getKeggPathwaysByKeggID bioinfo.icapture.ubc.ca keggID pathways
+ss:SIO_000062 getKeggPathwaysByKeggID bioinfo.icapture.ubc.ca keggID pathways
+
+#dumontier:hasParticipant getKeggIdsByKeggPathway bioinfo.icapture.ubc.ca pathway keggIds
+#predicates:hasPathwayGene getKeggIdsByKeggPathway bioinfo.icapture.ubc.ca pathway keggIds
+ss:SIO_000132 getKeggIdsByKeggPathway bioinfo.icapture.ubc.ca pathway keggIds
+
+#dumontier:hasParticipant getKeggCompoundsOnKeggPathway bioinfo.icapture.ubc.ca pathway compounds
+#predicates:hasMetabolite getKeggCompoundsOnKeggPathway bioinfo.icapture.ubc.ca pathway compounds
+ss:SIO_000132 getKeggCompoundsOnKeggPathway bioinfo.icapture.ubc.ca pathway compounds
+
+#predicates:isSubstance getPubChemSubstanceIdByKeggCompound bioinfo.icapture.ubc.ca cpd substance_id
+prop:isSubstance getPubChemSubstanceIdByKeggCompound bioinfo.icapture.ubc.ca cpd substance_id
+
+#predicates:belongsToOrganism getSymbolInfo cnio.es search result iHOPsymbol:belongsToOrganism.iHOPsymbol.construct
+prop:fromOrganism getSymbolInfo cnio.es search result iHOPsymbol:construct.sio/iHOPsymbol.fromOrganism.construct
+
+#predicates:hasDescription getSymbolInfo cnio.es search result iHOPsymbol:hasDescription.iHOPsymbol.construct
+prop:hasDescription getSymbolInfo cnio.es search result iHOPsymbol:construct.sio/iHOPsymbol.hasDescription.construct
+
+#predicates:hasName getSymbolInfo cnio.es search result iHOPsymbol:hasProteinName.iHOPsymbol.construct
+prop:hasName getSymbolInfo cnio.es search result iHOPsymbol:construct.sio/iHOPsymbol.hasName.construct
+
+# TODO
+# implement service for other organisms (using secondary parameters)
+#predicates:encodes getUniprotIdentifierByGeneName bioinfo.icapture.ubc.ca geneName ids
+ss:SIO_010078 getUniprotIdentifierByGeneName bioinfo.icapture.ubc.ca geneName ids
+
+#dumontier:isReferenceFor getSymbolInfo cnio.es search result iHOPsymbol:isPaperAboutProtein.iHOPsymbol.construct
+ss:SIO_000252 getSymbolInfo cnio.es search result iHOPsymbol:isPaperAboutProtein.iHOPsymbol.construct
+
+#predicates:has3DStructure getPDBIDsFromUniprot inb.bsc.es id pdb_ids
+prop:has3DStructure getPDBIDsFromUniprot inb.bsc.es id pdb_ids
+
+#predicates:is3DStructureFor getSymbolInfo cnio.es search result iHOPsymbol:is3DStructureFor.iHOPsymbol.construct
+prop:is3DStructureOf getSymbolInfo cnio.es search result iHOPsymbol:is3DStructureFor.iHOPsymbol.construct
+
+#predicates:hasProteinSequence seqretPROTEINRefFASTA2TEXT soaplab.icapture.ubc.ca sequence sequence text_plain:hasProteinSequence.text_plain.construct
+prop:hasSequence seqretPROTEINRefFASTA2TEXT soaplab.icapture.ubc.ca sequence text_plain:construct.sio/text_plain.hasSequence.construct
+
+#predicates:isEncodedBy convertIdentifier2KeggID bioinfo.icapture.ubc.ca identifier keggID
+ss:SIO_010079 convertIdentifier2KeggID bioinfo.icapture.ubc.ca identifier keggID
+
+#predicates:hasTermName getGoTerm identifier GOTerm
+#predicates:hasTermName get_go_information_by_go_term mpiz-koeln.mpg.de go_term go_summary Annotated_GO_Term:hasTermName.Annotated_GO_Term.construct
+prop:hasName get_go_information_by_go_term mpiz-koeln.mpg.de go_term go_summary Annotated_GO_Term:construct.sio/Annotated_GO_Term.hasName.construct
+
+#predicates:hasTermDefinition get_go_information_by_go_term mpiz-koeln.mpg.de go_term go_summary Annotated_GO_Term:hasTermDescription.Annotated_GO_Term.construct
+prop:hasDescription get_go_information_by_go_term mpiz-koeln.mpg.de go_term go_summary Annotated_GO_Term:construct.sio/Annotated_GO_Term.hasDescription.construct
+
+#predicates:hasMotif FindMotifById bioinfo.icapture.ubc.ca uniprotId motif
+prop:hasMotif FindMotifById bioinfo.icapture.ubc.ca uniprotId motif
+
+#predicates:encodes KeggToUniProt bioinfo.icapture.ubc.ca keggId uniprotId
+ss:SIO_010078 KeggToUniProt bioinfo.icapture.ubc.ca keggId uniprotId
+
+#predicates:hasTitle getPubMed cnio.es search result iHOPabstract:hasTitle.iHOPabstract.construct
+prop:hasTitle getPubMed cnio.es search result iHOPabstract:construct.sio/iHOPabstract.hasTitle.construct
+
+# Luke's ElevatedCreatinePatient class still references the old predicate
+benv:creatinineSlopeInverse FakeCreatinineEnumerator bioinfo.icapture.ubc.ca slope patientIds
+predicates:creatinineSlopeInverse FakeCreatinineEnumerator bioinfo.icapture.ubc.ca slope patientIds
+predicates:latestCreatinine FakeCreatinine bioinfo.icapture.ubc.ca patientID creatinine
+predicates:latestBUN FakeBUN bioinfo.icapture.ubc.ca patientID BUN
+
+# TODO
+# can use sub-properties of 'is broader than'/'is narrower than'...
+predicates:hasAncestorTerm MOBYSHoundGODBGetAllAncestors bioinfo.icapture.ubc.ca go ids
+predicates:hasChildTerm MOBYSHoundGODBGetChildrenOf bioinfo.icapture.ubc.ca go children
+predicates:hasDescendantTerm MOBYSHoundGODBGetAllChildren bioinfo.icapture.ubc.ca go children
+predicates:hasParentTerm MOBYSHoundGODBGetParentOf bioinfo.icapture.ubc.ca go parents
+
+# TODO
+# confirm 'is part of' is the proper super-property of isPublishedIn
+#predicates:publishedIn getPubMed cnio.es search result iHOPabstract:publishedIn.iHOPabstract.construct
+prop:isPublishedIn getPubMed cnio.es search result iHOPabstract:construct.sio/iHOPabstract.isPublishedIn.construct
+
+# TODO 
+# find SIO_ predicate
+predicates:hasPublicationYear getPubMed cnio.es search result iHOPabstract:hasPublicationYear.iHOPabstract.construct
+
+# TODO
+# find SIO_ predicate for isTagOf
+# implement service for other organisms (using secondary parameters)
+dumontier:isTagOf getUniprotIdentifiersByKeyword bioinfo.icapture.ubc.ca keyword ids
+
+#------------------------------------------------------------
+# Jayne's mappings
+#------------------------------------------------------------
+
+predicates:hasStructuralClassification getCATHHierarchyCodesFromPDBID inb.bsc.es pdbid domaincodes
+# Example input: PDB:3bqm
+predicates:hasLigand getLigandIdFromPDBId mmb.pcb.ub.es pdbCode output
+# Example input: PDB:NAD
+predicates:isLigandOf getPDBIdsFromLigandId mmb.pcb.ub.es ligandCode output
+# Example input: UniProt: P10417
+predicates:hasHomologyDerivedStructure getHSSPIDsFromUniProt inb.bsc.es id hssp_ids
+
+predicates:hasCharge getPDBLigand mmb.pcb.ub.es pdbLigandCode output PDBLigand:hasCharge.PDBLigand.construct
+predicates:hasMolecularWeight getPDBLigand mmb.pcb.ub.es pdbLigandCode output PDBLigand:hasMolecularWeight.PDBLigand.construct
+predicates:hasChemicalFormula getPDBLigand mmb.pcb.ub.es pdbLigandCode output PDBLigand:hasChemicalFormula.PDBLigand.construct
+predicates:hasChemicalName getPDBLigand mmb.pcb.ub.es pdbLigandCode output PDBLigand:hasChemicalName.PDBLigand.construct
+predicates:numAtoms getPDBLigand mmb.pcb.ub.es pdbLigandCode output PDBLigand:numAtoms.PDBLigand.construct
+
+######################################################################
+# OMITTED MAPPINGS (Jayne suggested these, but they didn't work
+# for one reason or another.  They are categorized by reason-for-omitting
+# below).
+######################################################################
+
+#------------------------------------------------------------------------------------------
+# REASON FOR OMITTING: they map to predicate URIs that are already
+# used in the demo (and thus they will slow down the demo queries.)
+#------------------------------------------------------------------------------------------
+
+#predicates:isEncodedBy getEnsemblIDsFromUniprot inb.bsc.es id ensembl_ids
+#predicates:encodes getUniProtIdentifiersByGeneName Global_GeneCommonName UniProt
+#predicates:encodes get_other_database_accessions_by_database_accession input alt_name <CONSTRUCT FILE NEEDS TO GO HERE>
+
+#-------------------------------------------------------------------------------------------
+# REASON FOR OMITTING: Can't remember, perhaps because they take about 30 seconds to return.  
+# There seems to be some useful information that can be extracted from these, e.g. UniProt => PMID 
+# These are iHOP services.
+#-------------------------------------------------------------------------------------------
+
+# Example input: UniProt:Q1JPL6
+# Service name: getLatestSymbolInformation
+# Example input: UniProt:Q1JPL6
+# Service name: getSymbolDefinitions 
+
+#-------------------------------------------------------------------------------------------
+# REASON FOR OMITTING: Related accession number (ProDom,CATH,etc.) appears as text content within the Moby XML, 
+# and there is no way to convert it to a URI (from within a CONSTRUCT query)
+#-------------------------------------------------------------------------------------------
+
+#up:hasDomain getProdomDomainsFromUniProt inb.bsc.es id motif
+#predicates:hasMotif getCATHDomainNamesFromPDBID inb.bsc.es PDBID CATH_domain_names
+
+#-------------------------------------------------------------------------------------------
+# REASON FOR OMITTING: The data of interest is not structured as XML, but is given as a raw
+# text block. (e.g. a BLAST report).
+# ------------------------------------------------------------------------------------------
+ 
+# Example input: Prosite:PS50089
+# Service name: getEntryFromProsite
+# Example input: PDB:1g5m
+# Service name: getActiveSiteInterfaceFromPDBId
+
+#-------------------------------------------------------------------------------------------
+# REASON FOR OMITTING: These are SeqHound services (hence they are outdated
+# and we can't count on them continuing to exist in the long term.)
+#-------------------------------------------------------------------------------------------
+
+# Service: BIND_IdsearchGetFastaByUniProt, many others (pattern: BIND_IdSearch*)
+
+#-------------------------------------------------------------------------------------------
+# REASON FOR OMITTING: Couldn't find an example input that would generate output.
+#-------------------------------------------------------------------------------------------
+
+# Tried CATH:1.10.510.2.1.1.4.30
+#Service: getEntryFromCATH
+# Tried UniProt:P12345, UniProt:O14733. No output.
+#up:hasDomain getFeatureAASequenceFromUniprot inb.bsc.es id sequence
+
+#----------------------------------------------------------------
+# REASON FOR OMITTING: Services are dead.
+#----------------------------------------------------------------
+
+#up:hasProteinSequence getAminoAcidSequence inb.bsc.es id sequence AminoAcidSequence:hasProteinSequence.AminoAcidSequence.construct
+#predicates:hasTermName getGoTerm bioinfo.icapture.ubc.ca identifier GOTerm GO_Term:hasTermName.GO_Term.construct
+# Service: getPrositeAnnStructureFromPDBID
+
+#------------------------------------------------------------------------------------------
+# REASON FOR OMITTING: This one returns IDs in the Swiss-Prot ID namespace.  If it was
+# UniProt, we could use it.
+#------------------------------------------------------------------------------------------
+
+#up:codesForProtein convertKeggGeneId2ProtId bioinfo.icapture.ubc.ca kegg_gene prot_id
+
+#------------------------------------------------------------------------------------------
+# REASON FOR OMITTING: We used to use this one, but at some point it starting 
+# returning empty results for many (not all) legitimate UniProt identifiers. Don't
+# know why.
+#------------------------------------------------------------------------------------------
+
+#predicates:hasProteinSequence RetrieveSequence bioinfo.icapture.ubc.ca sequenceId sequence GenericSequence:hasProteinSequence.GenericSequence.construct
+
+# hasGOTerm is not a useful predicate and the Moby service does not
+# differentiate between terms from the three GO ontologies; use 
+# http://sadiframework.org/examples/uniprot2go instead...
+#predicates:hasGOTerm get_GO_Term_by_Database_ID mpiz-koeln.mpg.de refseq_id go_term
+
+# hasTermType is not a useful predicate by itself...
+#predicates:hasTermType get_go_information_by_go_term mpiz-koeln.mpg.de go_term go_summary Annotated_GO_Term:hasTermType.Annotated_GO_Term.construct

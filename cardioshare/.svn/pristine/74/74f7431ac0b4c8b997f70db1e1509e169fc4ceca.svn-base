@@ -1,0 +1,15 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX ss: <http://semanticscience.org/resource/>
+PREFIX moby: <http://mobyrdf/> 
+CONSTRUCT 
+{    
+   %u% %u% _:desc .
+   _:desc rdf:type ss:SIO_000136 .
+   _:desc ss:SIO_000300 ?description . 
+} 
+WHERE
+{    
+   ?root moby:hasString ?name_node .    
+   ?name_node moby:hasArticleName "detailed_description" .
+   ?name_node moby:hasContent ?description . 
+}

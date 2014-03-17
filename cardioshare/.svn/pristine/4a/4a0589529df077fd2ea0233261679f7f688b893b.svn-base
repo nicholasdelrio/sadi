@@ -1,0 +1,21 @@
+# sadi.properties
+
+# outdated or intermittently-broken BioMoby services that have been replaced
+# by native SADI services:
+share.deadService = inb.bsc.es/getPDBIDsFromUniprot
+
+# linear and linear-async are duplicate services; only use one of them...
+share.deadService = http://sadiframework.org/examples/linear-async
+
+# this bio2rdf endpoint is timing out
+#share.deadService = http://protein.bio2rdf.org/sparql
+# this service slows Michel's query down ridiculously...
+#share.deadService = http://chebi.bio2rdf.org/sparql
+
+# ontologies to load when the query knowledge base is initialized;
+# this shouldn't be necessary any more, actually...
+#share.importOntology = http://sadiframework.org/ontologies/service_objects.owl
+#share.importOntology = http://sadiframework.org/ontologies/predicates.owl
+
+# exclude SPARQL services while testing Michel's query
+#sadi.registry.sparql.exclude = true

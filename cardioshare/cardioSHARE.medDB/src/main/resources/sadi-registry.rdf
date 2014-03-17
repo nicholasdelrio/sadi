@@ -1,0 +1,102 @@
+<rdf:RDF
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:sadi="http://sadiframework.org/ontologies/sadi.owl#"
+    xmlns:mygrid="http://www.mygrid.org.uk/mygrid-moby-service#"
+    xmlns:protege-dc="http://protege.stanford.edu/plugins/owl/dc/protege-dc.owl#"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+  <sadi:Service rdf:about="${deploy.root}/extractDrugNamesFromTextV4">
+    <rdf:type rdf:resource="http://www.mygrid.org.uk/mygrid-moby-service#serviceDescription"/>
+    <mygrid:hasOperation>
+      <mygrid:operation>
+        <mygrid:outputParameter>
+          <mygrid:parameter>
+            <mygrid:objectType rdf:resource="http://unbsj.biordf.net/information-extraction/ie-sadi-service-ontology.owl#extractDrugNamesFromTextV4_Output"/>
+          </mygrid:parameter>
+        </mygrid:outputParameter>
+        <mygrid:inputParameter>
+          <mygrid:parameter>
+            <mygrid:objectType rdf:resource="http://unbsj.biordf.net/information-extraction/ie-sadi-service-ontology.owl#extractDrugNamesFromText_Input"/>
+          </mygrid:parameter>
+        </mygrid:inputParameter>
+      </mygrid:operation>
+    </mygrid:hasOperation>
+    <mygrid:providedBy>
+      <mygrid:organisation>
+        <mygrid:authoritative rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean"
+        >false</mygrid:authoritative>
+        <protege-dc:creator rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >artjom.unb@gmail.com</protege-dc:creator>
+      </mygrid:organisation>
+    </mygrid:providedBy>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Extracts drug names from text (based on Gate Annie Gazetteer extracted from DrugBank)</rdfs:comment>
+    <mygrid:hasServiceDescriptionText rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Extracts drug names from text (based on Gate Annie Gazetteer extracted from DrugBank)</mygrid:hasServiceDescriptionText>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >extractDrugNamesFromTextV4</rdfs:label>
+    <mygrid:hasServiceNameText rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >extractDrugNamesFromTextV4</mygrid:hasServiceNameText>
+  </sadi:Service>
+  <mygrid:serviceDescription rdf:about="${deploy.root}/DrugDrugInteractionDiscovery">
+    <mygrid:hasServiceDescriptionText rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >This service takes in as input a 'chemical entity' that 'has attribute' some 'chemical identifier' and outputs an 'Annotated chemical entity' that 'is participant in' some 'drug drug interaction'</mygrid:hasServiceDescriptionText>
+    <mygrid:hasServiceNameText rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >DrugDrugInteractionDiscovery</mygrid:hasServiceNameText>
+    <mygrid:providedBy>
+      <mygrid:organisation>
+        <mygrid:authoritative rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean"
+        >false</mygrid:authoritative>
+        <protege-dc:creator rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >josemiguelcruztoledo@gmail.com</protege-dc:creator>
+      </mygrid:organisation>
+    </mygrid:providedBy>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >This service takes in as input a 'chemical entity' that 'has attribute' some 'chemical identifier' and outputs an 'Annotated chemical entity' that 'is participant in' some 'drug drug interaction'</rdfs:comment>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >DrugDrugInteractionDiscovery</rdfs:label>
+    <sadi:decoratesWith rdf:parseType="Resource">
+      <owl:someValuesFrom>
+        <rdf:Description rdf:about="http://sadi-ontology.semanticscience.org/ddiv2.owl#DDI_00009">
+          <rdfs:label>chemical identifier</rdfs:label>
+        </rdf:Description>
+      </owl:someValuesFrom>
+      <owl:onProperty>
+        <rdf:Description rdf:about="http://semanticscience.org/resource/SIO_000008">
+          <rdfs:label>has attribute</rdfs:label>
+        </rdf:Description>
+      </owl:onProperty>
+    </sadi:decoratesWith>
+    <mygrid:hasOperation>
+      <mygrid:operation>
+        <mygrid:outputParameter>
+          <mygrid:parameter>
+            <mygrid:objectType rdf:resource="http://sadi-ontology.semanticscience.org/ddiv2.owl#DDI_00005"/>
+          </mygrid:parameter>
+        </mygrid:outputParameter>
+        <mygrid:inputParameter>
+          <mygrid:parameter>
+            <mygrid:objectType rdf:resource="http://sadi-ontology.semanticscience.org/ddiv2.owl#DDI_10000"/>
+          </mygrid:parameter>
+        </mygrid:inputParameter>
+      </mygrid:operation>
+    </mygrid:hasOperation>
+    <sadi:registration rdf:parseType="Resource">
+      <dc:date>Thu Mar 01 14:01:24 PST 2012</dc:date>
+    </sadi:registration>
+    <sadi:decoratesWith rdf:parseType="Resource">
+      <owl:someValuesFrom>
+        <rdf:Description rdf:about="http://sadi-ontology.semanticscience.org/ddiv2.owl#DDI_00000">
+          <rdfs:label>drug drug interaction</rdfs:label>
+        </rdf:Description>
+      </owl:someValuesFrom>
+      <owl:onProperty>
+        <rdf:Description rdf:about="http://semanticscience.org/resource/SIO_000062">
+          <rdfs:label>is participant in</rdfs:label>
+        </rdf:Description>
+      </owl:onProperty>
+    </sadi:decoratesWith>
+    <rdf:type rdf:resource="http://sadiframework.org/ontologies/sadi.owl#Service"/>
+  </mygrid:serviceDescription>
+</rdf:RDF>

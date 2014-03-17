@@ -1,0 +1,14 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+PREFIX moby: <http://mobyrdf/> 
+PREFIX mobyobj: <http://biomoby.org/RESOURCES/MOBY-S/Objects/> 
+PREFIX SHARE: <http://es-01.chibi.ubc.ca/~benv/predicates.owl#>  
+
+CONSTRUCT 
+{    
+   %u% %u% ?seqStr . 
+} 
+WHERE
+{    
+   ?root moby:hasString ?seq .    
+   ?seq moby:hasContent ?seqStr . 
+}

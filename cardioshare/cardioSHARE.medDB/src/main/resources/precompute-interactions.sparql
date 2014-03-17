@@ -1,0 +1,9 @@
+PREFIX med: <http://sadiframework.org/ontologies/personalized-medicine/prescription.owl#>
+PREFIX sio: <http://semanticscience.org/resource/>
+
+SELECT *
+WHERE {
+    ?prescribedDrug
+    	a med:PrescribedDrug;
+    	sio:SIO_000062 ?interaction . # SIO_000062 = 'is participant in'
+}

@@ -1580,6 +1580,15 @@ public class SHAREKnowledgeBase
 					tracker.beenThere(service, inputResource);
 				}
 				output = service.invokeService(inputResources);
+				
+				/**
+				 * Added by Nick Del Rio
+				 */
+				
+				System.out.println("---------------------------------------------------------------------------------------");
+				System.out.println("can we execute this simple println without breaking everything LOLOLOL");
+				System.out.println("---------------------------------------------------------------------------------------");
+				
 			}
 
 			stopWatch.stop();

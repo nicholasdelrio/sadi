@@ -1,0 +1,162 @@
+Using Moby RDF files in current directory, instead of downloading the latest versions.  To change this behaviour, use the -f switch.
+Clearing existing registry data...
+Loading Moby RDF files into registry...
+Loading Moby predicate annotations...
+Setting default secondary parameters for services...
+DONE!
+http://es-01.chibi.ubc.ca/~benv/predicates.owl#has3DStructure getPDBIDsFromUniprot id pdb_ids
+http://es-01.chibi.ubc.ca/~benv/predicates.owl#hasTermName get_go_information_by_go_term go_term go_summary
+	Construct query for moby datatype Annotated_GO_Term: 
+
+		PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+		PREFIX moby: <http://mobyrdf/> 
+		PREFIX mobyobj: <http://biomoby.org/RESOURCES/MOBY-S/Objects/> 
+		CONSTRUCT {
+		 %u% %u% ?name .
+		 } 
+		WHERE {
+		 ?root moby:hasString ?name_node .
+		 ?name_node moby:hasArticleName "Definition" .
+		 ?name_node moby:hasContent ?name .
+		 }
+
+	Construct query for moby datatype GO_Term: 
+
+		PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+		PREFIX moby: <http://mobyrdf/> 
+		PREFIX mobyobj: <http://biomoby.org/RESOURCES/MOBY-S/Objects/> 
+		PREFIX SHARE: <http://es-01.chibi.ubc.ca/~benv/predicates.owl#> 
+		CONSTRUCT {
+		 %u% %u% ?name .
+		 } 
+		WHERE {
+		 ?root moby:hasString ?name_node .
+		 ?name_node moby:hasArticleName "Term" .
+		 ?name_node moby:hasContent ?name .
+		 }
+
+http://es-01.chibi.ubc.ca/~benv/predicates.owl#hasGOTerm get_GO_Term_by_Database_ID refseq_id go_term
+http://es-01.chibi.ubc.ca/~benv/predicates.owl#codedByGene convertIdentifier2KeggID identifier keggID
+http://es-01.chibi.ubc.ca/~benv/predicates.owl#creatinineSlopeInverse FakeCreatinineEnumerator slope patientIds
+http://es-01.chibi.ubc.ca/~benv/predicates.owl#hasAncestorTerm MOBYSHoundGODBGetAllAncestors go ids
+http://es-01.chibi.ubc.ca/~benv/predicates.owl#latestCreatinine FakeCreatinine patientID creatinine
+http://es-01.chibi.ubc.ca/~benv/predicates.owl#isKeywordFor getUniprotIdentifiersByKeyword keyword ids
+http://es-01.chibi.ubc.ca/~benv/predicates.owl#encodes getUniprotIdentifierByGeneName geneName ids
+http://es-01.chibi.ubc.ca/~benv/predicates.owl#hasParentTerm MOBYSHoundGODBGetParentOf go parents
+http://es-01.chibi.ubc.ca/~benv/predicates.owl#hasChildTerm MOBYSHoundGODBGetChildrenOf go children
+http://es-01.chibi.ubc.ca/~benv/predicates.owl#belongsToOrganism getSymbolInfo search result
+	Construct query for moby datatype iHOPsymbol: 
+
+		PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+		PREFIX moby: <http://mobyrdf/> 
+		PREFIX mobyobj: <http://biomoby.org/RESOURCES/MOBY-S/Objects/> 
+		PREFIX up: <http://uniprot/> 
+		CONSTRUCT {
+		 %u% %u% ?organismStr .
+		 } 
+		WHERE {
+		 ?root moby:hasArticleName "symbol" .
+		 ?root moby:hasString ?organism .
+		 ?organism moby:hasArticleName "organism" .
+		 ?organism moby:hasContent ?organismStr .
+		 }
+
+http://es-01.chibi.ubc.ca/~benv/predicates.owl#is3DStructureFor getSymbolInfo search result
+	Construct query for moby datatype iHOPsymbol: 
+
+		PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+		PREFIX moby: <http://mobyrdf/> 
+		PREFIX mobyobj: <http://biomoby.org/RESOURCES/MOBY-S/Objects/> 
+		PREFIX SHARE: <http://es-01.chibi.ubc.ca/~benv/predicates.owl#> 
+		CONSTRUCT {
+		 %u% %u% ?crossref_node .
+		 } 
+		WHERE {
+		 ?crossref rdf:type mobyobj:CrossReference .
+		 ?crossref moby:hasObject ?crossref_node .
+		 ?crossref_node moby:hasNamespace "UniProt" .
+		 }
+
+http://es-01.chibi.ubc.ca/~benv/predicates.owl#hasDescription getSymbolInfo search result
+	Construct query for moby datatype iHOPsymbol: 
+
+		PREFIX moby: <http://mobyrdf/> 
+		PREFIX mobyobj: <http://biomoby.org/RESOURCES/MOBY-S/Objects/> 
+		PREFIX SHARE: <http://es-01.chibi.ubc.ca/~benv/predicates.owl#> 
+		CONSTRUCT {
+		 %u% %u% ?descStr .
+		 } 
+		WHERE {
+		 ?root moby:hasArticleName "symbol" .
+		 ?root moby:hasString ?desc .
+		 ?desc moby:hasArticleName "description" .
+		 ?desc moby:hasContent ?descStr .
+		 }
+
+http://es-01.chibi.ubc.ca/~benv/predicates.owl#hasProteinName getSymbolInfo search result
+	Construct query for moby datatype iHOPsymbol: 
+
+		PREFIX moby: <http://mobyrdf/> 
+		PREFIX SHARE: <http://es-01.chibi.ubc.ca/~benv/predicates.owl#> 
+		CONSTRUCT {
+		 %u% %u% ?nameStr .
+		 } 
+		WHERE {
+		 ?root moby:hasArticleName "symbol" .
+		 ?root moby:hasString ?name .
+		 ?name moby:hasArticleName "synonym" .
+		 ?name moby:hasContent ?nameStr .
+		 }
+
+http://es-01.chibi.ubc.ca/~benv/predicates.owl#isPaperAboutProtein getSymbolInfo search result
+	Construct query for moby datatype iHOPsymbol: 
+
+		PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+		PREFIX moby: <http://mobyrdf/> 
+		PREFIX mobyobj: <http://biomoby.org/RESOURCES/MOBY-S/Objects/> 
+		PREFIX SHARE: <http://es-01.chibi.ubc.ca/~benv/predicates.owl#> 
+		PREFIX bro: <http://ontology.dumontierlab.com/> 
+		CONSTRUCT {
+		 %u% %u% ?crossref_node .
+		 } 
+		WHERE {
+		 ?crossref rdf:type mobyobj:CrossReference .
+		 ?crossref moby:hasObject ?crossref_node .
+		 ?crossref_node moby:hasNamespace "UniProt" .
+		 }
+
+http://es-01.chibi.ubc.ca/~benv/predicates.owl#belongsToPathway getKeggPathwaysByKeggID keggID pathways
+http://es-01.chibi.ubc.ca/~benv/predicates.owl#hasProteinMotif FindMotifById uniprotId motif
+http://es-01.chibi.ubc.ca/~benv/predicates.owl#codesForProtein KeggToUniProt keggId uniprotId
+http://es-01.chibi.ubc.ca/~benv/predicates.owl#hasProteinSequence RetrieveSequence sequenceId sequence
+	Construct query for moby datatype GenericSequence: 
+
+		PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+		PREFIX moby: <http://mobyrdf/> 
+		PREFIX mobyobj: <http://biomoby.org/RESOURCES/MOBY-S/Objects/> 
+		PREFIX SHARE: <http://es-01.chibi.ubc.ca/~benv/predicates.owl#> 
+		CONSTRUCT {
+		 %u% %u% ?seqStr .
+		 } 
+		WHERE {
+		 ?root moby:hasString ?seq .
+		 ?seq moby:hasContent ?seqStr .
+		 }
+
+	Construct query for moby datatype AminoAcidSequence: 
+
+		PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+		PREFIX moby: <http://mobyrdf/> 
+		PREFIX mobyobj: <http://biomoby.org/RESOURCES/MOBY-S/Objects/> 
+		PREFIX SHARE: <http://es-01.chibi.ubc.ca/~benv/predicates.owl#> 
+		CONSTRUCT {
+		 %u% %u% ?seqStr .
+		 } 
+		WHERE {
+		 ?root moby:hasString ?seq .
+		 ?seq moby:hasContent ?seqStr .
+		 }
+
+http://es-01.chibi.ubc.ca/~benv/predicates.owl#hasPathwayGene getKeggIdsByKeggPathway pathway keggIds
+http://es-01.chibi.ubc.ca/~benv/predicates.owl#hasDescendantTerm MOBYSHoundGODBGetAllChildren go children
+http://es-01.chibi.ubc.ca/~benv/predicates.owl#latestBUN FakeBUN patientID BUN

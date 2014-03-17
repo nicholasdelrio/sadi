@@ -1,0 +1,11 @@
+PREFIX moby: <http://mobyrdf/> 
+CONSTRUCT 
+{    
+     %u% %u% ?crossref_node . 
+} 
+WHERE 
+{    
+     ?crossref rdf:type mobyobj:CrossReference .    
+     ?crossref moby:hasObject ?crossref_node .    
+     ?crossref_node moby:hasNamespace "UniProt" . 
+}
