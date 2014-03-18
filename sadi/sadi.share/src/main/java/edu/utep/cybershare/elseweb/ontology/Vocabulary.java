@@ -14,7 +14,7 @@ public class Vocabulary {
 	private static final String edac = "http://ontology.cybershare.utep.edu/ELSEWeb/elseweb-edac.owl#";
 	private static final String data = "http://ontology.cybershare.utep.edu/ELSEWeb/elseweb-data.owl#";
 	private static final String service = "http://ontology.cybershare.utep.edu/ELSEWeb/elseweb-service.owl#";
-	
+	private static final String provo = "http://www.w3.org/ns/prov#";
 	private static final String rdf = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
 
 	//rdf properties
@@ -24,11 +24,17 @@ public class Vocabulary {
 	public static final Resource SADIService = model.createResource(service + "SADIService");
 	public static final Resource SHAREClient = model.createResource(service + "SHAREClient");
 	public static final Resource SADIActivity = model.createResource(service + "SADIActivity");
-
+	public static final Resource InvokeServiceActivity = model.createResource(service + "InvokeServiceActivity");
+	
 	//provo properties
+	public static final Property startedAtTime = model.createProperty(provo + "startedAtTime");
+	public static final Property endedAtTime = model.createProperty(provo + "endedAtTime");
+
+	//service properties
 	public static final Property hadInput = model.createProperty(service + "hadInput");
 	public static final Property wasOutputBy = model.createProperty(service + "wasOutputBy");
 	public static final Property wasAssociatedWith = model.createProperty(service + "wasAssociatedWith");
+	public static final Property wasInvokedBy = model.createProperty(service + "wasInvokedBy");
 	
 		
 	//data Classes

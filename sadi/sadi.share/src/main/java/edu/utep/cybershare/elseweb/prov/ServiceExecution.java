@@ -2,10 +2,12 @@ package edu.utep.cybershare.elseweb.prov;
 
 import java.io.StringWriter;
 import java.net.URI;
+import java.util.Calendar;
 import java.util.Collection;
 
 import ca.wilkinsonlab.sadi.client.Service;
 
+import com.hp.hpl.jena.datatypes.xsd.XSDDateTime;
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
 import com.hp.hpl.jena.rdf.model.Property;
@@ -16,48 +18,47 @@ import com.hp.hpl.jena.rdf.model.StmtIterator;
 
 import edu.utep.cybershare.elseweb.ontology.Vocabulary;
 import edu.utep.cybershare.elseweb.util.ELSEWebProvenanceNamedGraph;
-import edu.utep.cybershare.elseweb.util.Printing;
 import edu.utep.cybershare.elseweb.util.ResourceURI;
 
 public class ServiceExecution {
 		
+	private Calendar startTime;
+	private Calendar endTime;
+	
+	private Resource shareClientAgent;	
 	private ResourceURI resourceURI;
-	private Resource agent;
+	private Resource sadiServiceAgent;
 	private Service service;
 	private Model model;
 	
-	public ServiceExecution(Service service){
+	public ServiceExecution(Service service, Calendar startTime, Calendar endTime){
+		this.startTime = startTime;
+		this.endTime = endTime;
+		
 		this.model = ModelFactory.createDefaultModel();
 		this.service = service;
 		this.resourceURI = new ResourceURI();
-		this.agent = model.createResource(service.getURI(), Vocabulary.SADIService);
+		this.sadiServiceAgent = model.createResource(service.getURI(), Vocabulary.SADIService);
+		this.shareClientAgent = model.createResource(resourceURI.getPreditableURI("cardioSHARE-elseweb").toASCIIString(), Vocabulary.SHAREClient);
 	}
 	
 	public void logExecution(Collection<Resource> inputs, Model outputs){
-
-		System.out.println("printing set of outputs from service:");
-		Printing.print(outputs);
+		//add output model to this provenance model
+		this.model.add(outputs);
 		
-		Resource anActivity;
-		String activityName = service.getName() + "-activity";
-		URI activityURI;
-		Resource output;
 		for(Resource input : inputs){
-			activityURI = resourceURI.getRandomURI(activityName);
-			anActivity = model.createResource(activityURI.toASCIIString(), Vocabulary.SADIActivity);
-			anActivity.addProperty(Vocabulary.wasAssociatedWith, this.agent);
+			//create cardioShare activity
+			Resource aCardioSHAREInvokeServiceActivity = this.getCardioSHAREInvokeServiceActivity();
+			aCardioSHAREInvokeServiceActivity.addProperty(Vocabulary.wasAssociatedWith, this.shareClientAgent);
 			
-			//add triples of input and output to the provenance model
-			//this.model.add(input.getModel());
-			this.model.add(outputs);
-			
-			//set input to activity
-			System.out.println("adding as input to activity: " + input.getURI());
-			anActivity.addProperty(Vocabulary.hadInput, input);
-			
+			//create sadi service activity
+			Resource aSADIServiceActivity = this.getSADIServiceActivity(input);
+			aSADIServiceActivity.addProperty(Vocabulary.wasAssociatedWith, this.sadiServiceAgent);
+			aSADIServiceActivity.addProperty(Vocabulary.hadInput, input);
+			aSADIServiceActivity.addProperty(Vocabulary.wasInvokedBy, aCardioSHAREInvokeServiceActivity);
+						
 			//set objects of properties as output(s) to activity
-			output = outputs.getResource(input.getURI());
-			
+			Resource output = outputs.getResource(input.getURI());
 			StmtIterator iterator = output.listProperties();
 			while(iterator.hasNext()){
 				Statement statement = iterator.next();
@@ -72,22 +73,38 @@ public class ServiceExecution {
 					//skip literals since they can't be the subject of a statement
 					if(!node.isLiteral()){
 						Resource replicatedOutput = this.model.getResource(node.asResource().getURI());
-						replicatedOutput.addProperty(Vocabulary.wasOutputBy, anActivity);
+						replicatedOutput.addProperty(Vocabulary.wasOutputBy, aSADIServiceActivity);
 					}
 				}
 			}
 		}
-		
 		dump();
 	}
 	
-	private void dump(){
+	private Resource getCardioSHAREInvokeServiceActivity(){
+		String cardioSHAREInvokeServiceActivityName = "invoke-" + service.getName() + "-activity";
+		URI aCardioSHAREInvokeServiceActivityURI = resourceURI.getRandomURI(cardioSHAREInvokeServiceActivityName);
+		Resource aCardioSHAREInvokeServiceActivity = model.createResource(aCardioSHAREInvokeServiceActivityURI.toASCIIString(), Vocabulary.InvokeServiceActivity);
 		
+		XSDDateTime startDateTime = new XSDDateTime(startTime);
+		XSDDateTime endDateTime = new XSDDateTime(endTime);
+		
+		aCardioSHAREInvokeServiceActivity.addLiteral(Vocabulary.startedAtTime, startDateTime);
+		aCardioSHAREInvokeServiceActivity.addLiteral(Vocabulary.endedAtTime, endDateTime);
+		return aCardioSHAREInvokeServiceActivity;
+	}
+	
+	private Resource getSADIServiceActivity(Resource input){
+		String sadiServiceActivityName = service.getName() + "-activity";
+		URI aSADIServiceActivityURI = resourceURI.getRandomURI(sadiServiceActivityName);		
+		Resource aSADIServiceActivity = model.createResource(aSADIServiceActivityURI.toASCIIString(), Vocabulary.SADIActivity);
+		
+		return aSADIServiceActivity;
+	}
+	
+	private void dump(){
 		StringWriter wtr = new StringWriter();
 		this.model.write(wtr, "TURTLE");
-
-		System.out.println("PROVENANCE---------------------");
-		System.out.println(wtr.toString());
 		
 		ELSEWebProvenanceNamedGraph.getInstance().postProvenance(wtr.toString(), "elseweb", "elseweb1");
 	}

@@ -3,6 +3,7 @@ package ca.wilkinsonlab.sadi.share;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
@@ -1556,18 +1557,21 @@ public class SHAREKnowledgeBase
 				for (Resource inputResource: inputResources) {
 					tracker.beenThere(service, inputResource);
 				}
-				output = service.invokeService(inputResources);
-				
 				/**
-				 * Added test by Nick Del Rio
+				 * Provenance logging coded added by Nicholas Del Rio
 				 */
+
+				// record start and end time for service invocation
+				Calendar startTime = Calendar.getInstance();
+				output = service.invokeService(inputResources);
+				Calendar endTime = Calendar.getInstance();
 				
 				System.out.println("------------------------------------------------------------------------");
 				System.out.println("Just invoked " + service.getName());
 				System.out.println("------------------------------------------------------------------------");
 				
 				System.out.println("Logging provenance of execution");
-				ServiceExecution anExecution = new ServiceExecution(service);
+				ServiceExecution anExecution = new ServiceExecution(service, startTime, endTime);
 				anExecution.logExecution(inputResources, output);
 			}
 			
