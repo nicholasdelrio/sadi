@@ -1,4 +1,0 @@
-# cardioSHARE-default.properties
-
-usePellet = false
-outputRDFPath = /var/www/tmp

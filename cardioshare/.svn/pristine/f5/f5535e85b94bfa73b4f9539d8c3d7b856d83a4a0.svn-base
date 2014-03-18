@@ -1,2 +1,0 @@
-PREFIX SHARE: <http://es-01.chibi.ubc.ca/~benv/predicates.owl#>
-SHARE:belongsToPathway getKeggPathwaysByKeggID bioinfo.icapture.ubc.ca keggID pathways

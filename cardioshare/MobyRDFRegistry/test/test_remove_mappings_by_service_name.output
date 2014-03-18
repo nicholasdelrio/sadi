@@ -1,9 +1,0 @@
-Adding mapping for predicate 'http://es-01.chibi.ubc.ca/~benv/predicates.owl#isPaperAboutProtein':
-   Service: getSymbolInfo
-   Authority: cnio.es
-   Input article name: search
-   Output article name: result
-   Datatype/CONSTRUCT query: iHOPsymbol / isPaperAboutProtein.iHOPsymbol.construct
-Removing mappings that match (all of) the following criteria:
-   Service name: getSymbolInfo
-

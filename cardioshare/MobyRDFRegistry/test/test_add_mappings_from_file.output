@@ -1,6 +1,0 @@
-Adding mapping for predicate 'http://es-01.chibi.ubc.ca/~benv/predicates.owl#belongsToPathway':
-   Service: getKeggPathwaysByKeggID
-   Authority: bioinfo.icapture.ubc.ca
-   Input article name: keggID
-   Output article name: pathways
-OK
