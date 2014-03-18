@@ -8,6 +8,7 @@ import java.util.Collection;
 import ca.wilkinsonlab.sadi.client.Service;
 
 import com.hp.hpl.jena.datatypes.xsd.XSDDateTime;
+import com.hp.hpl.jena.query.Query;
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
 import com.hp.hpl.jena.rdf.model.Property;
@@ -30,6 +31,7 @@ public class ServiceExecution {
 	private Resource sadiServiceAgent;
 	private Service service;
 	private Model model;
+	private Query query;
 	
 	public ServiceExecution(Service service, Calendar startTime, Calendar endTime){
 		this.startTime = startTime;
@@ -40,6 +42,10 @@ public class ServiceExecution {
 		this.resourceURI = new ResourceURI();
 		this.sadiServiceAgent = model.createResource(service.getURI(), Vocabulary.SADIService);
 		this.shareClientAgent = model.createResource(resourceURI.getPreditableURI("cardioSHARE-elseweb").toASCIIString(), Vocabulary.SHAREClient);
+	}
+	
+	public void setResponsibleQuery(Query query){
+		this.query = query;
 	}
 	
 	public void logExecution(Collection<Resource> inputs, Model outputs){
@@ -97,7 +103,7 @@ public class ServiceExecution {
 	private Resource getSADIServiceActivity(Resource input){
 		String sadiServiceActivityName = service.getName() + "-activity";
 		URI aSADIServiceActivityURI = resourceURI.getRandomURI(sadiServiceActivityName);		
-		Resource aSADIServiceActivity = model.createResource(aSADIServiceActivityURI.toASCIIString(), Vocabulary.SADIActivity);
+		Resource aSADIServiceActivity = model.createResource(aSADIServiceActivityURI.toASCIIString(), Vocabulary.SADIServiceExecutionActivity);
 		
 		return aSADIServiceActivity;
 	}

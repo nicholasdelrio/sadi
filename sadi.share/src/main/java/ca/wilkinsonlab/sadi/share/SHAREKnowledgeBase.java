@@ -83,6 +83,11 @@ public class SHAREKnowledgeBase
 	private Tracker tracker;
 	private Set<String> deadServices;
 	
+	/**
+	 * Added by Nick Del Rio to keep track of the query
+	 */
+	private Query sparqlQuery;
+	
 	public static final String ROOT_CONFIG_KEY = "share";
 	public static final String ALLOW_ARQ_SYNTAX_CONFIG_KEY = "allowARQSyntax";
 	public static final String ALLOW_PREDICATE_VARIABLES_CONFIG_KEY = "allowPredicateVariables";
@@ -297,6 +302,11 @@ public class SHAREKnowledgeBase
 	
 	public void executeQuery(Query query, QueryPatternOrderingStrategy strategy)
 	{
+		/**
+		 * Added by Nick Del Rio
+		 */
+		this.sparqlQuery = query;
+		
 		loadFromClauses(query);
 		
 		List<Triple> queryPatterns = new QueryPatternEnumerator(query).getQueryPatterns();
@@ -315,6 +325,11 @@ public class SHAREKnowledgeBase
 	
 	protected void executeQueryAdaptive(Query query)
 	{
+		/**
+		 * Added by Nick Del Rio
+		 */
+		this.sparqlQuery = query;
+		
 		loadFromClauses(query);
 
 		log.trace("running query with adaptive query planning");
@@ -1572,6 +1587,7 @@ public class SHAREKnowledgeBase
 				
 				System.out.println("Logging provenance of execution");
 				ServiceExecution anExecution = new ServiceExecution(service, startTime, endTime);
+				anExecution.setResponsibleQuery(this.sparqlQuery);
 				anExecution.logExecution(inputResources, output);
 			}
 			
