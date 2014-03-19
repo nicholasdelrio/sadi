@@ -97,7 +97,7 @@ public class QueryPlan {
 		//the invoke service activities invoked by the execute query plan activity
 		List<Resource> invokeSADIServiceActivities = execution.getInvokeServiceActivity(inputs, outputs);
 		for(Resource invokeSADIServiceActivity : invokeSADIServiceActivities)
-			invokeSADIServiceActivity.addProperty(Vocabulary.wasInvokedBy, this.shareClientQueryPlanExecutorAgent);
+			invokeSADIServiceActivity.addProperty(Vocabulary.wasInvokedBy, this.executeQueryPlanActivity);
 	
 		//This is a hack.  We are adding many duplicate triples unnecessarily, but because I don't know where in the code the execution ends,
 		//I have to do this hack.	
