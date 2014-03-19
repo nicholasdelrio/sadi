@@ -1521,7 +1521,7 @@ public class SHAREKnowledgeBase
 	}
 	
 	public void setQueryPlanLogger(QueryPlan queryPlan){
-		
+		this.queryPlanLogger = queryPlan;
 	}
 
 	private Model invokeService(Service service, Set<? extends RDFNode> inputs)
