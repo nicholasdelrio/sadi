@@ -62,6 +62,7 @@ import com.hp.hpl.jena.vocabulary.OWL;
 import com.hp.hpl.jena.vocabulary.RDF;
 import com.hp.hpl.jena.vocabulary.RDFS;
 
+import edu.utep.cybershare.elseweb.prov.QueryPlan;
 import edu.utep.cybershare.elseweb.prov.ServiceExecution;
 
 public class SHAREKnowledgeBase
@@ -1586,9 +1587,9 @@ public class SHAREKnowledgeBase
 				System.out.println("------------------------------------------------------------------------");
 				
 				System.out.println("Logging provenance of execution");
-				ServiceExecution anExecution = new ServiceExecution(service, startTime, endTime);
-				anExecution.setResponsibleQuery(this.sparqlQuery);
-				anExecution.logExecution(inputResources, output);
+				
+				QueryPlan executionLogger = new QueryPlan(this.sparqlQuery);
+				executionLogger.addServiceExecution(service, inputResources, output, startTime, endTime);				
 			}
 			
 			stopWatch.stop();

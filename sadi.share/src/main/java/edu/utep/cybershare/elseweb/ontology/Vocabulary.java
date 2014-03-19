@@ -18,23 +18,24 @@ public class Vocabulary {
 	
 	//service agents
 	public static final Resource SADIService = model.createResource(service + "SADIService");
-	public static final Resource SHAREClient = model.createResource(service + "SHAREClient");
+	public static final Resource SHAREClientQueryPlanner = model.createResource(service + "SHAREClientQueryPlanner");
+	public static final Resource SHAREClientQueryPlanExecutor = model.createResource(service + "SHAREClientQueryPlanExecutor");
 	public static final Resource ELSEWebUser = model.createResource(service + "ELSEWebUser");
 
 	//service activities
 	public static final Resource SADIServiceExecutionActivity = model.createResource(service + "SADIServiceExecutionActivity");
-	public static final Resource InvokeServiceActivity = model.createResource(service + "InvokeServiceActivity");
+	public static final Resource InvokeSADIServiceActivity = model.createResource(service + "InvokeSADIServiceActivity");
 	public static final Resource GenerateQueryPlanActivity = model.createResource(service + "GenerateQueryPlanActivity");
 	public static final Resource ExecuteQueryPlanActivity = model.createResource(service + "ExecuteQueryPlanActivity");
 	
 	//service entities
-	public static final Resource SparqlQuery = model.createResource(service + "SPARQLQuery");
+	public static final Resource SPARQLQuery = model.createResource(service + "SPARQLQuery");
 	public static final Resource SADIServiceInput = model.createResource(service + "SADIServiceInput");
 	public static final Resource SADIServiceOutput = model.createResource(service + "SADIServiceOutput");
-	public static final Resource CardioSHAREQueryPlan = model.createResource(service + "CardioSHAREQueryPlan");
+	public static final Resource SHAREQueryPlan = model.createResource(service + "SHAREQueryPlan");
 	
-	//provo classes
-	public static final Property Association = model.createProperty(provo + "Association");	
+	//service associations
+	public static final Property QueryPlanAssociation = model.createProperty(provo + "QueryPlanAssociation");	
 	
 	//provo properties
 	public static final Property wasAssociatedWith = model.createProperty(provo + "wasAssociatedWith");
@@ -42,9 +43,14 @@ public class Vocabulary {
 	public static final Property endedAtTime = model.createProperty(provo + "endedAtTime");
 	public static final Property agent = model.createProperty(provo + "agent");
 	public static final Property hadPlan = model.createProperty(provo + "hadPlan");
+	public static final Property used = model.createProperty(provo + "used");
+	public static final Property wasGeneratedBy = model.createProperty(provo + "wasGeneratedBy");
+	public static final Property wasAttributedTo = model.createProperty(provo + "wasAttributedTo");
+	public static final Property wasInformedBy = model.createProperty(provo + "wasInformedBy");
 	
 	//service properties
 	public static final Property hadInput = model.createProperty(service + "hadInput");
 	public static final Property wasOutputBy = model.createProperty(service + "wasOutputBy");
 	public static final Property wasInvokedBy = model.createProperty(service + "wasInvokedBy");
+	public static final Property hasQueryText = model.createProperty(service + "hasQueryText");
 }
