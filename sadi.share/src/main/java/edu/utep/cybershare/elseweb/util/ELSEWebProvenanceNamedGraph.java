@@ -1,5 +1,6 @@
 package edu.utep.cybershare.elseweb.util;
 
+import java.io.StringWriter;
 import java.net.URL;
 
 import org.apache.http.HttpEntity;
@@ -11,6 +12,8 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
+
+import com.hp.hpl.jena.rdf.model.Model;
 
 
 public class ELSEWebProvenanceNamedGraph {
@@ -38,14 +41,21 @@ public class ELSEWebProvenanceNamedGraph {
 		catch(Exception e){e.printStackTrace();}
 	}
 	
-	public boolean postProvenance(String text, String username, String password){
+	private static String getTurtle(Model model){
+		StringWriter wtr = new StringWriter();
+		model.write(wtr, "TURTLE");
+		
+		return wtr.toString();
+	}
+	
+	public boolean postProvenance(String turtleText, String username, String password){
 		boolean success = false;
 		httpClient.getCredentialsProvider().setCredentials(
 	                new AuthScope(postURL.getHost(), AuthScope.ANY_PORT), 
 	                new UsernamePasswordCredentials(username, password));
 		
 		try{
-			StringEntity stringEntity = new StringEntity(text, "text/turtle", HTTP.ASCII);
+			StringEntity stringEntity = new StringEntity(turtleText, "text/turtle", HTTP.ASCII);
 		
 			HttpPost httppost = new HttpPost(postURL.toString());
 			httppost.setEntity(stringEntity);
@@ -66,6 +76,11 @@ public class ELSEWebProvenanceNamedGraph {
 		} catch(Exception e){e.printStackTrace();}
 	
 		return success;
+	}
+	
+	public boolean postProvenance(Model model, String username, String password){
+		String turtleText = getTurtle(model);
+		return this.postProvenance(turtleText, username, password);
 	}
 	
 	public static String getRDFContent(){

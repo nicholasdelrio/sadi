@@ -1,6 +1,5 @@
 package edu.utep.cybershare.elseweb.prov;
 
-import java.io.StringWriter;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.List;
@@ -99,17 +98,13 @@ public class QueryPlan {
 		List<Resource> invokeSADIServiceActivities = execution.getInvokeServiceActivity(inputs, outputs);
 		for(Resource invokeSADIServiceActivity : invokeSADIServiceActivities)
 			invokeSADIServiceActivity.addProperty(Vocabulary.wasInvokedBy, this.shareClientQueryPlanExecutorAgent);
-		
+	
 		//This is a hack.  We are adding many duplicate triples unnecessarily, but because I don't know where in the code the execution ends,
-		//I have to do this hack.
-		
+		//I have to do this hack.	
 		dump();
 	}
 	
 	private void dump(){
-		StringWriter wtr = new StringWriter();
-		this.queryPlanModel.write(wtr, "TURTLE");
-		
-		ELSEWebProvenanceNamedGraph.getInstance().postProvenance(wtr.toString(), "elseweb", "elseweb1");
+		ELSEWebProvenanceNamedGraph.getInstance().postProvenance(this.queryPlanModel, "elseweb", "elseweb1");
 	}
 }
