@@ -22,7 +22,7 @@ public class ResourceURI {
 	}
 	
 	public URI getURI(String baseFragment){		
-		String fullFragment = baseFragment + "-" + uuid.toString();
+		String fullFragment = baseFragment + "-" + uuid;
 		return createURI(fullFragment);
 	}
 	

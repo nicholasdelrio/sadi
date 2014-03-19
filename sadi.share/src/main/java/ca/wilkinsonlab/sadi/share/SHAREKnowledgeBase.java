@@ -63,7 +63,6 @@ import com.hp.hpl.jena.vocabulary.RDF;
 import com.hp.hpl.jena.vocabulary.RDFS;
 
 import edu.utep.cybershare.elseweb.prov.QueryPlan;
-import edu.utep.cybershare.elseweb.prov.ServiceExecution;
 
 public class SHAREKnowledgeBase
 {
@@ -85,9 +84,9 @@ public class SHAREKnowledgeBase
 	private Set<String> deadServices;
 	
 	/**
-	 * Added by Nick Del Rio to keep track of the query
+	 * Added by Nick Del Rio
 	 */
-	private Query sparqlQuery;
+	private QueryPlan queryPlanLogger;
 	
 	public static final String ROOT_CONFIG_KEY = "share";
 	public static final String ALLOW_ARQ_SYNTAX_CONFIG_KEY = "allowARQSyntax";
@@ -303,11 +302,6 @@ public class SHAREKnowledgeBase
 	
 	public void executeQuery(Query query, QueryPatternOrderingStrategy strategy)
 	{
-		/**
-		 * Added by Nick Del Rio
-		 */
-		this.sparqlQuery = query;
-		
 		loadFromClauses(query);
 		
 		List<Triple> queryPatterns = new QueryPatternEnumerator(query).getQueryPatterns();
@@ -325,12 +319,7 @@ public class SHAREKnowledgeBase
 	}
 	
 	protected void executeQueryAdaptive(Query query)
-	{
-		/**
-		 * Added by Nick Del Rio
-		 */
-		this.sparqlQuery = query;
-		
+	{		
 		loadFromClauses(query);
 
 		log.trace("running query with adaptive query planning");
@@ -1530,6 +1519,10 @@ public class SHAREKnowledgeBase
 			return false;
 		}
 	}
+	
+	public void setQueryPlanLogger(QueryPlan queryPlan){
+		
+	}
 
 	private Model invokeService(Service service, Set<? extends RDFNode> inputs)
 	{
@@ -1587,9 +1580,7 @@ public class SHAREKnowledgeBase
 				System.out.println("------------------------------------------------------------------------");
 				
 				System.out.println("Logging provenance of execution");
-				
-				QueryPlan executionLogger = new QueryPlan(this.sparqlQuery);
-				executionLogger.addServiceExecution(service, inputResources, output, startTime, endTime);				
+				queryPlanLogger.addServiceExecution(service, inputResources, output, startTime, endTime);				
 			}
 			
 			stopWatch.stop();

@@ -20,6 +20,8 @@ import com.hp.hpl.jena.query.Syntax;
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.RDFNode;
 
+import edu.utep.cybershare.elseweb.prov.QueryPlan;
+
 public class SHAREQueryClient extends QueryClient
 {
 	private static final Logger log = Logger.getLogger(SHAREQueryClient.class);
@@ -75,6 +77,12 @@ public class SHAREQueryClient extends QueryClient
 			 * the data that will be used by the actual reasoner...
 			 */
 
+			/**
+			 * Added by Nick Del Rio
+			 */
+			QueryPlan queryPlanLogger = new QueryPlan(query);
+			kb.setQueryPlanLogger(queryPlanLogger);
+			
 			log.debug("populating SHARE knowledge base");
 
 			stopWatch.start();
@@ -91,6 +99,11 @@ public class SHAREQueryClient extends QueryClient
 
 			stopWatch.stop();
 			log.debug(String.format("solved query against populated SHARE knowledge base in %dms", stopWatch.getTime()));
+			
+			/**
+			 * Added By Nick Del Rio
+			 */
+			queryPlanLogger.dump();
 		}
 		
 		private void execQuery(List<Map<String, String>> results, String query, Model model)

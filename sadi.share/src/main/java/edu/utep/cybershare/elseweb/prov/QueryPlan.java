@@ -6,7 +6,6 @@ import java.util.List;
 
 import ca.wilkinsonlab.sadi.client.Service;
 
-import com.hp.hpl.jena.query.Query;
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
 import com.hp.hpl.jena.rdf.model.Resource;
@@ -20,7 +19,7 @@ public class QueryPlan {
 	private Model queryPlanModel;
 	
 	//the input sparql query
-	private Query query;
+	private String query;
 	
 	//query plan related activites
 	private Resource executeQueryPlanActivity;
@@ -41,8 +40,8 @@ public class QueryPlan {
 	//URI generator
 	ResourceURI resourceURI;
 	
-	public QueryPlan(Query inputQuery){
-		this.query = inputQuery;
+	public QueryPlan(String sparqlQuery){
+		this.query = sparqlQuery;
 		this.queryPlanModel = ModelFactory.createDefaultModel();
 		this.resourceURI = new ResourceURI();
 		
@@ -57,7 +56,7 @@ public class QueryPlan {
 		
 		//link up sparql query
 		this.sparqlQuery.addProperty(Vocabulary.wasAttributedTo, this.elsewebUserAgent);
-		this.sparqlQuery.addLiteral(Vocabulary.hasQueryText, this.query.toString());
+		this.sparqlQuery.addLiteral(Vocabulary.hasQueryText, this.query);
 		
 		//link up query plan
 		this.shareQueryPlan.addProperty(Vocabulary.wasGeneratedBy, this.generateQueryPlanActivity);
@@ -98,13 +97,9 @@ public class QueryPlan {
 		List<Resource> invokeSADIServiceActivities = execution.getInvokeServiceActivity(inputs, outputs);
 		for(Resource invokeSADIServiceActivity : invokeSADIServiceActivities)
 			invokeSADIServiceActivity.addProperty(Vocabulary.wasInvokedBy, this.executeQueryPlanActivity);
-	
-		//This is a hack.  We are adding many duplicate triples unnecessarily, but because I don't know where in the code the execution ends,
-		//I have to do this hack.	
-		dump();
 	}
 	
-	private void dump(){
+	public void dump(){
 		ELSEWebProvenanceNamedGraph.getInstance().postProvenance(this.queryPlanModel, "elseweb", "elseweb1");
 	}
 }
