@@ -1,5 +1,6 @@
 sadi
 ====
 
-Modded to post PROV provenance to ELSEWeb triple store
+Mod to post service exectution PROV-O to ELSEWeb Virtuoso
+
 Please visit https://code.google.com/p/sadi/
